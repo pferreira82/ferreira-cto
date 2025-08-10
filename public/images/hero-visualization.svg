@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#4D99FF" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" rx="32" fill="url(#heroGrad)"/>
+  
+  <!-- Grid -->
+  <g stroke="#93c5fd" stroke-opacity="0.4" stroke-width="1">
+    <defs>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none"/>
+      </pattern>
+    </defs>
+    <rect width="800" height="600" fill="url(#grid)"/>
+  </g>
+  
+  <!-- Central architecture diagram -->
+  <g transform="translate(200,150)" stroke="#60a5fa" fill="none" stroke-width="2">
+    <!-- Core system -->
+    <rect x="100" y="80" width="200" height="120" rx="16" stroke="#1a7cff" stroke-width="3"/>
+    <text x="200" y="150" text-anchor="middle" fill="#1a7cff" font-family="monospace" font-size="14" font-weight="bold">CORE SYSTEM</text>
+    
+    <!-- Connected services -->
+    <g stroke="#60a5fa">
+      <!-- AI/ML -->
+      <rect x="0" y="0" width="120" height="60" rx="8"/>
+      <text x="60" y="35" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="12">AI/ML</text>
+      <path d="M60,60 L150,80" stroke-dasharray="5,5"/>
+      
+      <!-- Robotics -->
+      <rect x="280" y="0" width="120" height="60" rx="8"/>
+      <text x="340" y="35" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="12">ROBOTICS</text>
+      <path d="M340,60 L250,80" stroke-dasharray="5,5"/>
+      
+      <!-- SaaS Platform -->
+      <rect x="100" y="240" width="200" height="60" rx="8"/>
+      <text x="200" y="275" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="12">SAAS PLATFORM</text>
+      <path d="M200,200 L200,240" stroke-dasharray="5,5"/>
+      
+      <!-- Database -->
+      <rect x="0" y="180" width="80" height="40" rx="8"/>
+      <text x="40" y="205" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10">DB</text>
+      <path d="M80,200 L100,140" stroke-dasharray="5,5"/>
+      
+      <!-- API Gateway -->
+      <rect x="320" y="180" width="80" height="40" rx="8"/>
+      <text x="360" y="205" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10">API</text>
+      <path d="M320,200 L300,140" stroke-dasharray="5,5"/>
+    </g>
+  </g>
+  
+  <!-- Floating data points -->
+  <g fill="#1a7cff" filter="url(#glow)">
+    <circle cx="120" cy="120" r="4"/>
+    <circle cx="680" cy="180" r="4"/>
+    <circle cx="640" cy="420" r="4"/>
+    <circle cx="160" cy="480" r="4"/>
+    <circle cx="720" cy="320" r="4"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M120,120 Q300,60 680,180"/>
+    <path d="M160,480 Q400,380 640,420"/>
+    <path d="M120,120 Q200,300 160,480"/>
+  </g>
+</svg>
