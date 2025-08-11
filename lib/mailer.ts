@@ -14,7 +14,7 @@ import type { ContactInput } from "./validators";
           const resendKey = process.env.RESEND_API_KEY;
           if (resendKey) {
             try {
-              const { Resend } = await import("@resend/node");
+                const { Resend } = await import("resend");
               const resend = new Resend(resendKey);
 
               const subject = `New Inquiry from ${data.name}`;
@@ -66,7 +66,7 @@ ${data.message}`
           if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
             try {
               const nodemailer = await import("nodemailer");
-              const transporter = nodemailer.createTransporter({
+              const transporter = nodemailer.createTransport({
                 host: process.env.SMTP_HOST,
                 port: Number(process.env.SMTP_PORT || 587),
                 secure: process.env.SMTP_SECURE === "true",
