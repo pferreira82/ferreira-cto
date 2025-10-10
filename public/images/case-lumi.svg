@@ -1,28 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
   <defs>
-    <linearGradient id="lumiGrad" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="lumiHealthGrad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0A4699"/>
       <stop offset="1" stop-color="#4D99FF"/>
     </linearGradient>
   </defs>
-  <rect width="400" height="240" rx="20" fill="url(#lumiGrad)" opacity="0.1"/>
+  <rect width="400" height="240" rx="20" fill="url(#lumiHealthGrad)" opacity="0.1"/>
   
-  <!-- Chat interface mockup -->
-  <g transform="translate(50,40)">
-    <rect x="0" y="0" width="300" height="160" rx="20" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
+  <g transform="translate(50,30)">
+    <rect x="0" y="0" width="300" height="180" rx="20" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
     
-    <!-- Chat avatar -->
-    <circle cx="60" cy="80" r="30" fill="#1a7cff" opacity="0.8"/>
-    <circle cx="55" cy="70" r="6" fill="#fff"/>
-    <circle cx="65" cy="70" r="6" fill="#fff"/>
-    <path d="M50,90 Q60,100 70,90" stroke="#fff" stroke-width="2" fill="none"/>
+    <g transform="translate(30,40)">
+      <circle cx="30" cy="30" r="25" fill="#1a7cff" opacity="0.8"/>
+      <path d="M 20,30 L 25,30 L 27,25 L 30,38 L 33,25 L 35,30 L 40,30" 
+            stroke="#fff" stroke-width="2" fill="none"/>
+      
+      <circle cx="30" cy="30" r="30" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.3"/>
+      <circle cx="30" cy="30" r="35" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.2"/>
+    </g>
     
-    <!-- Chat messages -->
     <g fill="#60a5fa" opacity="0.6">
-      <rect x="120" y="40" width="160" height="12" rx="6"/>
-      <rect x="120" y="60" width="120" height="12" rx="6"/>
-      <rect x="120" y="100" width="140" height="12" rx="6"/>
-      <rect x="120" y="120" width="100" height="12" rx="6"/>
+      <rect x="100" y="30" width="180" height="16" rx="8"/>
+      <text x="110" y="42" fill="#fff" font-size="10" opacity="0.9">Medication Reminder: 8am</text>
+      
+      <rect x="100" y="55" width="160" height="16" rx="8"/>
+      <text x="110" y="67" fill="#fff" font-size="10" opacity="0.9">Health Tip: Stay hydrated</text>
+      
+      <rect x="100" y="100" width="170" height="16" rx="8"/>
+      <text x="110" y="112" fill="#fff" font-size="10" opacity="0.9">Activity Goal: 65% complete</text>
+      
+      <rect x="100" y="125" width="150" height="16" rx="8"/>
+      <text x="110" y="137" fill="#fff" font-size="10" opacity="0.9">Dr. Visit: Tomorrow 2pm</text>
+    </g>
+    
+    <g transform="translate(20,120)">
+      <rect x="0" y="0" width="60" height="50" rx="8" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.5"/>
+      <text x="30" y="15" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold">METRICS</text>
+      <text x="30" y="28" text-anchor="middle" fill="#60a5fa" font-size="7">Steps: 8.2K</text>
+      <text x="30" y="38" text-anchor="middle" fill="#60a5fa" font-size="7">Sleep: 7.5h</text>
+      <text x="30" y="48" text-anchor="middle" fill="#60a5fa" font-size="7">HR: 68 bpm</text>
     </g>
   </g>
 </svg>

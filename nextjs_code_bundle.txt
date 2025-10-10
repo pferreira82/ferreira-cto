@@ -1,0 +1,1874 @@
+# Next.js Code & SVG Bundle
+# Project root: /Users/peterferreira/code/ferreira-cto
+# Generated: 2025-10-09T13:20:07Z
+
+===== FILE: app/layout.tsx =====
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from '@vercel/analytics/next';
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter"
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "Ferreira CTO Inc. — Fractional CTO for AI, Robotics & SaaS",
+    template: "%s | Ferreira CTO Inc."
+  },
+  description: "Fractional CTO services specializing in AI, robotics, and SaaS. Strategy, architecture, and execution for startups and SMBs.",
+  keywords: ["Fractional CTO", "AI", "Robotics", "SaaS", "Technology Strategy", "Startup CTO"],
+  authors: [{ name: "Ferreira CTO Inc." }],
+  creator: "Ferreira CTO Inc.",
+  metadataBase: new URL("https://ferreiracto.com"),
+  openGraph: {
+    title: "Ferreira CTO Inc. — Fractional CTO for AI, Robotics & SaaS",
+    description: "Strategy, architecture, and execution for ambitious products.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Ferreira CTO Inc."
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ferreira CTO Inc.",
+    description: "Fractional CTO for AI, Robotics & SaaS"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png"
+  }
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white antialiased ${inter.className}`}>
+        <div className="gradient-mesh min-h-screen">
+          {children}
+          <SpeedInsights />
+          <Analytics />
+        </div>
+      </body>
+    </html>
+  );
+}
+===== END FILE: app/layout.tsx =====
+
+===== FILE: app/api/contact/route.ts =====
+import { NextRequest, NextResponse } from "next/server";
+import { ContactSchema } from "@/lib/validators";
+import { sendContactEmail } from "@/lib/mailer";
+import { contactRateLimiter } from "@/lib/rate-limiter";
+import { getClientIP } from "@/lib/utils";
+
+export async function POST(request: NextRequest) {
+  try {
+    // Get client IP for rate limiting and logging
+    const clientIp = getClientIP(request) || 'unknown';
+
+    // Rate limiting
+    const rateLimitResult = contactRateLimiter.check(clientIp);
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { 
+          error: "Too many requests. Please try again later.",
+          retryAfter: Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000)
+        },
+        { 
+          status: 429,
+          headers: {
+            'Retry-After': Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000).toString(),
+            'X-RateLimit-Limit': '5',
+            'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+            'X-RateLimit-Reset': rateLimitResult.resetTime.toString()
+          }
+        }
+      );
+    }
+
+    // Parse and validate request body
+    const body = await request.json();
+    const validationResult = ContactSchema.safeParse(body);
+
+    if (!validationResult.success) {
+      console.log(`[ContactForm] Validation failed from IP ${clientIp}:`, validationResult.error.issues);
+      return NextResponse.json(
+        { 
+          error: "Invalid form data",
+          details: validationResult.error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message
+          }))
+        },
+        { status: 400 }
+      );
+    }
+
+    // Send email
+    const emailResult = await sendContactEmail(validationResult.data, clientIp);
+
+    if (emailResult.skipped) {
+      // Honeypot triggered - return success to not reveal the honeypot
+      return NextResponse.json({ success: true });
+    }
+
+    return NextResponse.json({ 
+      success: true,
+      message: "Message sent successfully!"
+    });
+
+  } catch (error: any) {
+    console.error(`[ContactForm] Server error:`, error);
+
+    return NextResponse.json(
+      { 
+        error: "Failed to send message. Please try again later.",
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// Handle unsupported methods
+export async function GET() {
+  return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
+}
+===== END FILE: app/api/contact/route.ts =====
+
+===== FILE: app/page.tsx =====
+'use client';
+import { ArrowRight, CheckCircle, Zap, Shield, Target } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Section from "@/components/Section";
+import ContactForm from "@/components/ContactForm";
+import CaseStudyCard, { CaseStudy } from "@/components/CaseStudyCard";
+
+const CASE_STUDIES: CaseStudy[] = [
+  {
+    slug: "lumi",
+    title: "Lumi — Sober Concierge Chatbot",
+    excerpt: "Conversational AI supporting moms with motivation, resources, and recommendations. Built with Node.js and ChatGPT API, featuring Firebase storage and extensive context memory.",
+    image: "/images/case-lumi.svg",
+    tags: ["AI", "Chatbot", "Firebase", "Node.js"],
+    metrics: [
+      { label: "Context Window", value: "10K msgs" },
+      { label: "Channels", value: "Web, SMS" }
+    ]
+  },
+  {
+    slug: "orbcare",
+    title: "OrbCare — Infant Health Robotics",
+    excerpt: "Orb-shaped companion robot monitoring infant vitals and growth with Jetson Orin Nano, ToF LiDAR, haptic feedback, and voice assistant capabilities.",
+    image: "/images/case-orbcare.svg",
+    tags: ["Robotics", "Jetson", "Edge AI", "LiDAR"],
+    metrics: [
+      { label: "Sensors", value: "12+" },
+      { label: "Latency", value: "<100ms" }
+    ]
+  },
+  {
+    slug: "nanotech-ai",
+    title: "Nanotech AI — Material Property Prediction",
+    excerpt: "AI platform predicting nanomaterial properties for genetic repair and anti-aging applications. Advanced ML pipeline design with cloud inference infrastructure.",
+    image: "/images/case-nanotech.svg",
+    tags: ["ML", "MLOps", "Cloud", "Materials"],
+    metrics: [
+      { label: "Accuracy", value: "94.2%" },
+      { label: "Models", value: "15+" }
+    ]
+  },
+  {
+    slug: "chatbots-in-a-box",
+    title: "Chatbots-in-a-Box — Vertical AI Concierge",
+    excerpt: "SaaS platform providing industry-specific chatbot templates for restaurants, spas, and farms with shared models and tailored conversation flows.",
+    image: "/images/case-chatbots.svg",
+    tags: ["SaaS", "AI", "Templates", "Multi-tenant"],
+    metrics: [
+      { label: "Industries", value: "8+" },
+      { label: "Templates", value: "25+" }
+    ]
+  }
+];
+
+const SERVICES = [
+  {
+    icon: Target,
+    title: "Architecture & Strategy",
+    description: "Choose the right stack, map technical milestones, and de-risk with targeted proofs-of-concept."
+  },
+  {
+    icon: Zap,
+    title: "MVP & Rapid Prototyping",
+    description: "Ship polished MVPs quickly, gather real user feedback, and iterate with data-driven priorities."
+  },
+  {
+    icon: Shield,
+    title: "AI & Robotics Expertise",
+    description: "From LLM integrations to Jetson-powered robots and sophisticated edge AI processing pipelines."
+  }
+];
+
+const PROCESS_STEPS = [
+  {
+    step: "01",
+    title: "Discovery & Audit",
+    description: "Deep dive into your goals, constraints, and current technical landscape to identify opportunities."
+  },
+  {
+    step: "02",
+    title: "Strategy & Roadmap",
+    description: "Comprehensive architecture planning with clear milestones, risk assessment, and success metrics."
+  },
+  {
+    step: "03",
+    title: "Build & Iterate",
+    description: "Ship the core product, implement analytics and monitoring, then iterate weekly based on data."
+  }
+];
+
+// Define scroll function outside component to avoid any scoping issues
+const scrollToElement = (id: string) => {
+  console.log('Scroll function called with:', id);
+  const element = document.getElementById(id);
+  console.log('Found element:', element);
+
+  if (element) {
+    // Simple approach - just scroll to element
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  } else {
+    console.error('Element not found:', id);
+  }
+};
+
+export default function HomePage() {
+  return (
+    <>
+      <Header />
+
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/20 via-transparent to-brand-800/20" />
+        <div className="mx-auto max-w-7xl px-6 pt-20 pb-32">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="animate-slide-up">
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-2 text-sm font-medium text-brand-300 mb-8">
+                <Zap size={16} />
+                Fractional CTO for AI, Robotics & SaaS
+              </div>
+
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance">
+                Strategy, architecture, and{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">
+                  momentum
+                </span>{" "}
+                for ambitious products.
+              </h1>
+
+              <p className="text-xl text-slate-300 mt-8 leading-relaxed max-w-2xl text-balance">
+                I help founders ship faster and smarter: picking the right stack, 
+                building the core architecture, and establishing processes that scale with your vision.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                <button 
+                  type="button"
+                  onClick={() => {
+                    console.log('BUTTON 1 CLICKED!!!');
+                    scrollToElement('contact');
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  className="btn-primary flex items-center gap-2 justify-center"
+                >
+                  Start a Project
+                  <ArrowRight size={16} />
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    console.log('BUTTON 2 CLICKED!!!');
+                    scrollToElement('case-studies');
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  className="btn-secondary flex items-center gap-2 justify-center"
+                >
+                  View Case Studies
+                </button>
+              </div>
+
+              <dl className="grid grid-cols-2 gap-8 mt-16 text-sm">
+                <div className="space-y-2">
+                  <dt className="text-slate-400 font-medium">Specialties</dt>
+                  <dd className="font-semibold text-lg">AI/ML, Robotics, SaaS</dd>
+                </div>
+                <div className="space-y-2">
+                  <dt className="text-slate-400 font-medium">Based in</dt>
+                  <dd className="font-semibold text-lg">Massachusetts, USA</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="relative animate-fade-in">
+              <div className="relative h-[500px] w-full flex items-center justify-center">
+                <img 
+                  src="/images/hero-visualization.svg" 
+                  alt="Technical architecture visualization"
+                  className="w-full h-full object-contain drop-shadow-2xl" 
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES SECTION */}
+      <Section
+        id="services"
+        eyebrow="What I Do"
+        title="Fractional CTO that moves the needle"
+        subtitle="Hands-on technical leadership with a builder's mindset and startup experience."
+      >
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {SERVICES.map((service) => {
+            const IconComponent = service.icon;
+            return (
+              <div key={service.title} className="group card p-8 hover:border-brand-500/30 transition-all">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 rounded-xl bg-brand-500/10 border border-brand-500/20 group-hover:bg-brand-500/20 transition-colors">
+                    <IconComponent size={24} className="text-brand-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold">{service.title}</h3>
+                </div>
+                <p className="text-slate-300 leading-relaxed">{service.description}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            "SaaS Foundations & Architecture",
+            "Team Building & Process Design", 
+            "Advisory & Strategic Consulting"
+          ].map((service) => (
+            <div key={service} className="card p-6 text-center">
+              <CheckCircle size={20} className="text-brand-400 mx-auto mb-3" />
+              <h4 className="font-medium">{service}</h4>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* CASE STUDIES SECTION */}
+      <Section
+        id="case-studies"
+        eyebrow="Recent Work"
+        title="Selected case studies"
+        subtitle="A showcase of recent projects that demonstrate technical depth and business impact."
+      >
+        <div className="grid md:grid-cols-2 gap-8">
+          {CASE_STUDIES.map((caseStudy) => (
+            <CaseStudyCard key={caseStudy.slug} caseStudy={caseStudy} />
+          ))}
+        </div>
+      </Section>
+
+      {/* PROCESS SECTION */}
+      <Section
+        id="process"
+        eyebrow="How We Work"
+        title="Clear process, fast feedback loops"
+        subtitle="Lightweight methodologies designed to maintain high momentum while ensuring quality."
+      >
+        <div className="grid md:grid-cols-3 gap-8">
+          {PROCESS_STEPS.map((step, index) => (
+            <div key={step.step} className="relative">
+              <div className="card p-8 h-full">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-500/20 border border-brand-500/30">
+                    <span className="text-brand-300 font-bold">{step.step}</span>
+                  </div>
+                  <h3 className="text-xl font-semibold">{step.title}</h3>
+                </div>
+                <p className="text-slate-300 leading-relaxed">{step.description}</p>
+              </div>
+
+              {index < PROCESS_STEPS.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-brand-500 to-transparent transform -translate-y-1/2" />
+              )}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* CONTACT SECTION */}
+      <Section
+        id="contact"
+        eyebrow="Get Started"
+        title="Tell me about your project"
+        subtitle="I take on a limited number of new clients each quarter to ensure focused, high-quality engagement."
+      >
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <ContactForm />
+
+          <div className="space-y-8">
+            <div className="card p-8">
+              <h3 className="text-xl font-semibold mb-6">Typical Engagement</h3>
+              <ul className="space-y-4 text-slate-300">
+                {[
+                  "Part-time CTO (1–2 days/week) or project-based work",
+                  "Weekly strategic check-ins with async Slack updates", 
+                  "Transparent roadmap with measurable milestones",
+                  "Time-to-first-demo under 3 weeks for most MVPs"
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle size={16} className="text-brand-400 mt-1 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="card p-8">
+              <h4 className="font-semibold mb-4">Technology Stack</h4>
+              <p className="text-slate-300 leading-relaxed">
+                Next.js, React, Node.js, Python, TypeScript, CUDA/Jetson, 
+                Firebase, PostgreSQL, MongoDB, AWS, GCP, Vercel, Docker, 
+                and modern AI/ML frameworks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Footer />
+    </>
+  );
+}
+===== END FILE: app/page.tsx =====
+
+===== FILE: app/globals.css =====
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  ::selection {
+    background-color: rgba(26, 124, 255, 0.2);
+  }
+}
+
+@layer components {
+  .gradient-mesh {
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(26, 124, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(77, 153, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(10, 70, 153, 0.1) 0%, transparent 50%);
+  }
+
+  .card {
+    @apply relative rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-soft;
+  }
+
+  .card::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-50 pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-brand-500 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand-400 hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/10 hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900;
+  }
+
+  .form-input {
+    @apply block w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-slate-400 transition-all focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-in {
+    animation-fill-mode: both;
+  }
+
+  /* Fix for slide-up animation positioning issue */
+  .animate-slide-up {
+    animation: slideUpFixed 0.6s ease-out forwards;
+  }
+
+  @keyframes slideUpFixed {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+}
+===== END FILE: app/globals.css =====
+
+===== FILE: next-env.d.ts =====
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.
+
+===== END FILE: next-env.d.ts =====
+
+===== FILE: README.md =====
+# Ferreira CTO Inc. — Landing Page
+
+A production-ready Next.js landing page for **Ferreira CTO Inc.**, a fractional CTO service specializing in AI, robotics, and SaaS development.
+
+## ✨ Features
+
+- **Modern Stack**: Next.js 14 with App Router, TypeScript, and Tailwind CSS
+- **Working Contact Form**: Integrated with Resend or SMTP with rate limiting and spam protection
+- **Responsive Design**: Mobile-first approach with smooth animations
+- **SEO Optimized**: Proper meta tags, Open Graph, and structured data
+- **Performance**: Optimized images, fonts, and Core Web Vitals
+- **Security**: CSRF protection, rate limiting, and input validation
+- **TypeScript**: Full type safety throughout the application
+- **Production Ready**: Docker support, proper error handling, and logging
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ (recommend 20 LTS)
+- npm, yarn, or pnpm
+
+### Installation
+
+```bash
+# Clone or extract the project
+cd ferreira-cto
+
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env.local
+
+# Start development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see the result.
+
+### Email Configuration
+
+The contact form supports two email providers:
+
+#### Option 1: Resend (Recommended)
+
+1. Sign up at [resend.com](https://resend.com)
+2. Get your API key
+3. Add to `.env.local`:
+
+```env
+RESEND_API_KEY=re_your_actual_api_key_here
+CONTACT_TO_EMAIL=your-email@domain.com
+CONTACT_FROM_EMAIL=Your Name <noreply@yourdomain.com>
+```
+
+#### Option 2: SMTP
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
+CONTACT_TO_EMAIL=your-email@domain.com
+CONTACT_FROM_EMAIL=Your Name <noreply@yourdomain.com>
+```
+
+## 📁 Project Structure
+
+```
+ferreira-cto/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── ContactForm.tsx
+│   └── ...
+├── lib/                   # Utility functions
+│   ├── validators.ts      # Zod schemas
+│   ├── mailer.ts         # Email service
+│   └── utils.ts          # Helper functions
+├── public/               # Static assets
+│   ├── images/
+│   ├── favicon.svg
+│   └── logo.svg
+└── ...config files
+```
+
+## 🎨 Customization
+
+### Brand Colors
+
+Edit `tailwind.config.ts` to update the brand color palette:
+
+```typescript
+colors: {
+  brand: {
+    50: "#EEF6FF",
+    500: "#1A7CFF",  // Primary brand color
+    900: "#031633",
+    // ... rest of palette
+  }
+}
+```
+
+### Content
+
+- **Hero Section**: Edit `app/page.tsx`
+- **Services**: Update the `SERVICES` array
+- **Case Studies**: Modify the `CASE_STUDIES` array
+- **Contact Info**: Update footer and contact section
+
+### Images
+
+Replace SVG files in `public/images/` and `public/logo.svg` with your own assets.
+
+## 🛠️ Development
+
+### Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript checks
+```
+
+### Code Quality
+
+The project includes:
+
+- **ESLint**: Code linting with Next.js recommended config
+- **TypeScript**: Strict type checking
+- **Prettier**: Code formatting (add your own config)
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy
+
+### Other Platforms
+
+The app can be deployed to any platform supporting Node.js:
+
+- Netlify
+- Railway
+- Render
+- DigitalOcean App Platform
+
+## 🔒 Security Features
+
+- **Rate Limiting**: Contact form has built-in rate limiting
+- **Honeypot**: Spam protection via hidden form field
+- **Input Validation**: Zod schemas for all form inputs
+- **CSRF Protection**: Next.js built-in CSRF protection
+- **Security Headers**: X-Frame-Options, CSP, etc.
+
+## 📊 Performance
+
+The site is optimized for performance:
+
+- **Core Web Vitals**: Optimized for LCP, FID, and CLS
+- **Image Optimization**: Next.js Image component with proper sizing
+- **Font Optimization**: Inter font with `font-display: swap`
+- **Code Splitting**: Automatic with Next.js App Router
+- **Bundle Analysis**: Use `npm run build` to analyze bundle size
+
+## 🧪 Testing
+
+Add your preferred testing framework:
+
+```bash
+# Example with Jest and Testing Library
+npm install -D jest @testing-library/react @testing-library/jest-dom
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📞 Support
+
+For questions or support, please contact [contact@ferreiracto.com](mailto:contact@ferreiracto.com).
+
+---
+
+Built with ❤️ using Next.js, TypeScript, and Tailwind CSS.
+===== END FILE: README.md =====
+
+===== FILE: components/Section.tsx =====
+import { ReactNode } from 'react';
+
+interface SectionProps {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  children: ReactNode;
+  className?: string;
+}
+
+export default function Section({ 
+  id, 
+  eyebrow, 
+  title, 
+  subtitle, 
+  children,
+  className = ""
+}: SectionProps) {
+  return (
+    <section 
+      id={id} 
+      className={`mx-auto max-w-7xl px-6 py-24 ${className}`}
+    >
+      <div className="max-w-3xl mb-16 animate-slide-up">
+        {eyebrow && (
+          <div className="inline-flex items-center rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-300 tracking-wide uppercase">
+            {eyebrow}
+          </div>
+        )}
+        <h2 className="text-3xl md:text-5xl font-bold leading-tight mt-4 text-balance">
+          {title}
+        </h2>
+        {subtitle && (
+          <p className="text-lg text-slate-300 mt-6 leading-relaxed text-balance">
+            {subtitle}
+          </p>
+        )}
+      </div>
+      <div className="animate-fade-in">
+        {children}
+      </div>
+    </section>
+  );
+}
+===== END FILE: components/Section.tsx =====
+
+===== FILE: components/CaseStudyCard.tsx =====
+export interface CaseStudy {
+  slug: string;
+  title: string;
+  excerpt: string;
+  metrics?: Array<{ label: string; value: string; }>;
+  image: string;
+  tags: string[];
+}
+
+interface CaseStudyCardProps {
+  caseStudy: CaseStudy;
+}
+
+export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
+  const { title, excerpt, metrics, image, tags } = caseStudy;
+
+  return (
+    <article className="group card overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
+      <div className="relative h-64 w-full bg-gradient-to-br from-brand-800/50 to-brand-900/50 overflow-hidden flex items-center justify-center">
+        <img 
+          src={image} 
+          alt={`${title} case study illustration`}
+          className="w-full h-full object-contain p-8 transition-transform group-hover:scale-105" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+      </div>
+
+      <div className="p-8">
+        <div className="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag) => (
+            <span 
+              key={tag} 
+              className="text-xs rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-brand-300 font-medium"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <h3 className="text-xl font-semibold mb-3 text-balance">
+          {title}
+        </h3>
+
+        <p className="text-slate-300 leading-relaxed mb-6">
+          {excerpt}
+        </p>
+
+        {metrics && metrics.length > 0 && (
+          <dl className="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
+            {metrics.map((metric) => (
+              <div key={metric.label} className="text-center">
+                <dt className="text-xs text-slate-400 uppercase tracking-wide font-medium">
+                  {metric.label}
+                </dt>
+                <dd className="font-semibold text-lg mt-1 text-brand-300">
+                  {metric.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+    </article>
+  );
+}
+===== END FILE: components/CaseStudyCard.tsx =====
+
+===== FILE: components/Footer.tsx =====
+import { Logo } from "./Logo";
+import { Mail, MapPin } from "lucide-react";
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-white/10 mt-32">
+      <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+          <div className="space-y-4">
+            <Logo />
+            <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
+              Fractional CTO services for ambitious founders building the future of AI, robotics, and SaaS.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-semibold text-white">Contact</h3>
+            <div className="space-y-3 text-sm text-slate-300">
+              <div className="flex items-center gap-3">
+                <Mail size={16} className="text-brand-400" />
+                <a 
+                  href="mailto:contact@ferreiracto.com" 
+                  className="hover:text-white transition-colors"
+                >
+                  contact@ferreiracto.com
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <MapPin size={16} className="text-brand-400" />
+                <span>Massachusetts, USA</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-semibold text-white">Services</h3>
+            <ul className="space-y-2 text-sm text-slate-300">
+              <li>Fractional CTO</li>
+              <li>AI & Robotics</li>
+              <li>SaaS Architecture</li>
+              <li>MVP Development</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-slate-400">
+            © {currentYear} Ferreira CTO Inc. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6 text-xs text-slate-400">
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+===== END FILE: components/Footer.tsx =====
+
+===== FILE: components/ContactForm.tsx =====
+'use client';
+import { useState } from 'react';
+import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+
+type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+
+interface FormData {
+  name: string;
+  email: string;
+  org: string;
+  message: string;
+}
+
+interface FieldErrors {
+  [key: string]: string;
+}
+
+export default function ContactForm() {
+  const [status, setStatus] = useState<FormStatus>('idle');
+  const [message, setMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    org: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+
+    // Clear field error when user starts typing
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const errors: FieldErrors = {};
+
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      errors.name = 'Name must be at least 2 characters';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters';
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Clear previous errors
+    setFieldErrors({});
+    setMessage('');
+
+    // Client-side validation
+    if (!validateForm()) {
+      setStatus('error');
+      setMessage('Please fix the errors below and try again.');
+      return;
+    }
+
+    setStatus('sending');
+
+    // Get form data including honeypot
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 400 && result.details) {
+          // Handle validation errors from server
+          const serverErrors: FieldErrors = {};
+          result.details.forEach((detail: any) => {
+            serverErrors[detail.field] = detail.message;
+          });
+          setFieldErrors(serverErrors);
+          setStatus('error');
+          setMessage('Please fix the errors below and try again.');
+        } else if (response.status === 429) {
+          setStatus('error');
+          setMessage('Too many requests. Please wait a few minutes before trying again.');
+        } else {
+          throw new Error(result.error || `Server error (${response.status})`);
+        }
+        return;
+      }
+
+      setStatus('success');
+      setMessage('Thanks! I will get back to you within 24 hours.');
+
+      // Reset form
+      setFormData({ name: '', email: '', org: '', message: '' });
+      form.reset();
+
+    } catch (error: any) {
+      console.error('Contact form error:', error);
+      setStatus('error');
+      setMessage('Something went wrong. Please try again or email me directly.');
+    }
+  };
+
+  const getFieldClassName = (fieldName: string, baseClass: string) => {
+    return `${baseClass} ${fieldErrors[fieldName] ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`;
+  };
+
+  return (
+      <form onSubmit={handleSubmit} className="card p-8 space-y-6">
+        {/* Honeypot field - hidden from users */}
+        <input
+            type="text"
+            name="company"
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+              Name *
+            </label>
+            <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                value={formData.name}
+                onChange={handleInputChange}
+                className={getFieldClassName('name', 'form-input')}
+                placeholder="Jane Doe"
+                disabled={status === 'sending'}
+            />
+            {fieldErrors.name && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <AlertCircle size={14} />
+                  {fieldErrors.name}
+                </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+              Email *
+            </label>
+            <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleInputChange}
+                className={getFieldClassName('email', 'form-input')}
+                placeholder="you@company.com"
+                disabled={status === 'sending'}
+            />
+            {fieldErrors.email && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <AlertCircle size={14} />
+                  {fieldErrors.email}
+                </p>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="org" className="block text-sm font-medium text-slate-300 mb-2">
+            Company
+          </label>
+          <input
+              id="org"
+              name="org"
+              type="text"
+              value={formData.org}
+              onChange={handleInputChange}
+              className="form-input"
+              placeholder="Company Inc."
+              disabled={status === 'sending'}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+            What do you need help with? *
+          </label>
+          <textarea
+              id="message"
+              name="message"
+              rows={5}
+              required
+              value={formData.message}
+              onChange={handleInputChange}
+              className={getFieldClassName('message', 'form-input resize-none')}
+              placeholder="Briefly describe your project, challenges, or goals. I would love to learn more about what you are building."
+              disabled={status === 'sending'}
+          />
+          <div className="text-xs text-slate-400 mt-1">
+            {formData.message.length}/10 characters minimum
+          </div>
+          {fieldErrors.message && (
+              <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                <AlertCircle size={14} />
+                {fieldErrors.message}
+              </p>
+          )}
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {status === 'sending' ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  Sending...
+                </>
+            ) : (
+                <>
+                  <Send size={16} />
+                  Send Message
+                </>
+            )}
+          </button>
+
+          {message && (
+              <div className={`flex items-center gap-2 text-sm rounded-lg px-3 py-2 ${
+                  status === 'success'
+                      ? 'text-green-300 bg-green-900/20 border border-green-700/30'
+                      : 'text-red-300 bg-red-900/20 border border-red-700/30'
+              }`}>
+                {status === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
+                {message}
+              </div>
+          )}
+        </div>
+
+        {status === 'error' && Object.keys(fieldErrors).length > 0 && (
+            <div className="bg-red-900/20 border border-red-700/30 rounded-lg p-4">
+              <p className="text-red-300 text-sm font-medium mb-2">Please fix the following errors:</p>
+              <ul className="text-red-300 text-sm space-y-1">
+                {Object.entries(fieldErrors).map(([field, error]) => (
+                    <li key={field} className="flex items-center gap-2">
+                      <div className="w-1 h-1 bg-red-400 rounded-full"></div>
+                      <span className="capitalize">{field}:</span> {error}
+                    </li>
+                ))}
+              </ul>
+            </div>
+        )}
+      </form>
+  );
+}
+===== END FILE: components/ContactForm.tsx =====
+
+===== FILE: components/Logo.tsx =====
+import Link from "next/link";
+
+interface LogoProps {
+  className?: string;
+}
+
+export function Logo({ className = "" }: LogoProps) {
+  return (
+    <Link 
+      href="/" 
+      className={`inline-flex items-center gap-3 transition-transform hover:scale-105 ${className}`}
+      aria-label="Ferreira CTO Inc. Home"
+    >
+      {/*<img */}
+      {/*  src="/logo.svg" */}
+      {/*  alt="Ferreira CTO Inc." */}
+      {/*  width="40" */}
+      {/*  height="40" */}
+      {/*  className="drop-shadow-sm"*/}
+      {/*/>*/}
+      <span className="text-xl font-semibold tracking-tight">
+        Ferreira CTO
+      </span>
+    </Link>
+  );
+}
+===== END FILE: components/Logo.tsx =====
+
+===== FILE: components/Header.tsx =====
+'use client';
+import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Logo } from './Logo';
+
+const navigation = [
+  { name: 'Services', href: '#services' },
+  { name: 'Case Studies', href: '#case-studies' },
+  { name: 'Process', href: '#process' },
+] as const;
+
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerHeight = 80; // Account for sticky header
+      const elementPosition = element.offsetTop - headerHeight;
+
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  return (
+    <header 
+      className={`sticky top-0 z-50 border-b border-white/10 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-slate-950/90 backdrop-blur-xl shadow-lg' 
+          : 'bg-slate-950/70 backdrop-blur-sm'
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-6 py-4">
+        <div className="flex items-center justify-between">
+          <Logo />
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navigation.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => scrollTo(item.href.slice(1))}
+                className="text-sm text-slate-300 transition-colors hover:text-white focus:outline-none focus:text-white"
+              >
+                {item.name}
+              </button>
+            ))}
+            <button
+              onClick={() => scrollTo('contact')}
+              className="btn-primary"
+            >
+              Contact
+            </button>
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden mt-4 pb-4 border-t border-white/10">
+            <div className="flex flex-col space-y-3 pt-4">
+              {navigation.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollTo(item.href.slice(1))}
+                  className="text-left text-slate-300 hover:text-white transition-colors py-2 focus:outline-none focus:text-white"
+                >
+                  {item.name}
+                </button>
+              ))}
+              <button
+                onClick={() => scrollTo('contact')}
+                className="btn-primary mt-3 w-fit"
+              >
+                Contact
+              </button>
+            </div>
+          </nav>
+        )}
+      </div>
+    </header>
+  );
+}
+===== END FILE: components/Header.tsx =====
+
+===== FILE: public/images/case-lumi.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="lumiGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#lumiGrad)" opacity="0.1"/>
+  
+  <!-- Chat interface mockup -->
+  <g transform="translate(50,40)">
+    <rect x="0" y="0" width="300" height="160" rx="20" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
+    
+    <!-- Chat avatar -->
+    <circle cx="60" cy="80" r="30" fill="#1a7cff" opacity="0.8"/>
+    <circle cx="55" cy="70" r="6" fill="#fff"/>
+    <circle cx="65" cy="70" r="6" fill="#fff"/>
+    <path d="M50,90 Q60,100 70,90" stroke="#fff" stroke-width="2" fill="none"/>
+    
+    <!-- Chat messages -->
+    <g fill="#60a5fa" opacity="0.6">
+      <rect x="120" y="40" width="160" height="12" rx="6"/>
+      <rect x="120" y="60" width="120" height="12" rx="6"/>
+      <rect x="120" y="100" width="140" height="12" rx="6"/>
+      <rect x="120" y="120" width="100" height="12" rx="6"/>
+    </g>
+  </g>
+</svg>
+===== END FILE: public/images/case-lumi.svg =====
+
+===== FILE: public/images/case-chatbots.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="chatGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#chatGrad)" opacity="0.1"/>
+  
+  <!-- Multiple chat interfaces -->
+  <g transform="translate(40,40)">
+    <!-- Chat bubble 1 -->
+    <rect x="0" y="0" width="100" height="30" rx="15" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
+    <text x="50" y="20" text-anchor="middle" fill="#60a5fa" font-size="10" opacity="0.8">Restaurant</text>
+    
+    <!-- Chat bubble 2 -->
+    <rect x="0" y="40" width="120" height="30" rx="15" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
+    <text x="60" y="60" text-anchor="middle" fill="#60a5fa" font-size="10" opacity="0.8">Spa &amp; Wellness</text>
+    
+    <!-- Chat bubble 3 -->
+    <rect x="0" y="80" width="90" height="30" rx="15" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
+    <text x="45" y="100" text-anchor="middle" fill="#60a5fa" font-size="10" opacity="0.8">Farm Direct</text>
+    
+    <!-- Template indicators -->
+    <g transform="translate(160,10)" fill="#60a5fa" opacity="0.5">
+      <rect x="0" y="0" width="120" height="6" rx="3"/>
+      <rect x="0" y="15" width="90" height="6" rx="3"/>
+      <rect x="0" y="30" width="100" height="6" rx="3"/>
+      <rect x="0" y="50" width="110" height="6" rx="3"/>
+      <rect x="0" y="65" width="80" height="6" rx="3"/>
+      <rect x="0" y="80" width="95" height="6" rx="3"/>
+    </g>
+  </g>
+</svg>
+===== END FILE: public/images/case-chatbots.svg =====
+
+===== FILE: public/images/case-nanotech.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="nanoGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#nanoGrad)" opacity="0.1"/>
+  
+  <!-- Molecular structure -->
+  <g transform="translate(60,60)" stroke="#60a5fa" stroke-width="2" fill="none">
+    <!-- Nodes -->
+    <circle cx="40" cy="40" r="8" fill="#1a7cff"/>
+    <circle cx="80" cy="20" r="8" fill="#1a7cff"/>
+    <circle cx="80" cy="60" r="8" fill="#1a7cff"/>
+    <circle cx="120" cy="40" r="8" fill="#1a7cff"/>
+    
+    <!-- Connections -->
+    <line x1="48" y1="40" x2="72" y2="20"/>
+    <line x1="48" y1="40" x2="72" y2="60"/>
+    <line x1="88" y1="20" x2="112" y2="40"/>
+    <line x1="88" y1="60" x2="112" y2="40"/>
+    
+    <!-- AI analysis indicators -->
+    <g transform="translate(160,0)" fill="#60a5fa" opacity="0.6">
+      <rect x="0" y="20" width="80" height="8" rx="4"/>
+      <rect x="0" y="35" width="60" height="8" rx="4"/>
+      <rect x="0" y="50" width="70" height="8" rx="4"/>
+      <rect x="0" y="65" width="50" height="8" rx="4"/>
+    </g>
+  </g>
+</svg>
+===== END FILE: public/images/case-nanotech.svg =====
+
+===== FILE: public/images/case-orbcare.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="orbGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#orbGrad)" opacity="0.1"/>
+  
+  <!-- Robot orb -->
+  <g transform="translate(80,60)">
+    <circle cx="60" cy="60" r="50" stroke="#60a5fa" stroke-width="3" fill="none" opacity="0.8"/>
+    <circle cx="60" cy="60" r="35" fill="#1a7cff" opacity="0.3"/>
+    
+    <!-- Sensors -->
+    <circle cx="45" cy="45" r="4" fill="#60a5fa"/>
+    <circle cx="75" cy="45" r="4" fill="#60a5fa"/>
+    <rect x="50" y="70" width="20" height="8" rx="4" fill="#60a5fa"/>
+    
+    <!-- Base -->
+    <rect x="30" y="110" width="60" height="12" rx="6" fill="#60a5fa" opacity="0.6"/>
+    
+    <!-- Data streams -->
+    <g transform="translate(150,20)" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.5">
+      <path d="M0,20 h80" stroke-dasharray="5,5"/>
+      <path d="M0,40 h60" stroke-dasharray="5,5"/>
+      <path d="M0,60 h70" stroke-dasharray="5,5"/>
+      <path d="M0,80 h50" stroke-dasharray="5,5"/>
+    </g>
+  </g>
+</svg>
+===== END FILE: public/images/case-orbcare.svg =====
+
+===== FILE: public/images/hero-visualization.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#4D99FF" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" rx="32" fill="url(#heroGrad)"/>
+  
+  <!-- Grid -->
+  <g stroke="#93c5fd" stroke-opacity="0.4" stroke-width="1">
+    <defs>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none"/>
+      </pattern>
+    </defs>
+    <rect width="800" height="600" fill="url(#grid)"/>
+  </g>
+  
+  <!-- Central architecture diagram -->
+  <g transform="translate(200,150)" stroke="#60a5fa" fill="none" stroke-width="2">
+    <!-- Core system -->
+    <rect x="100" y="80" width="200" height="120" rx="16" stroke="#1a7cff" stroke-width="3"/>
+    <text x="200" y="150" text-anchor="middle" fill="#1a7cff" font-family="monospace" font-size="14" font-weight="bold">CORE SYSTEM</text>
+    
+    <!-- Connected services -->
+    <g stroke="#60a5fa">
+      <!-- AI/ML -->
+      <rect x="0" y="0" width="120" height="60" rx="8"/>
+      <text x="60" y="35" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="12">AI/ML</text>
+      <path d="M60,60 L150,80" stroke-dasharray="5,5"/>
+      
+      <!-- Robotics -->
+      <rect x="280" y="0" width="120" height="60" rx="8"/>
+      <text x="340" y="35" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="12">ROBOTICS</text>
+      <path d="M340,60 L250,80" stroke-dasharray="5,5"/>
+      
+      <!-- SaaS Platform -->
+      <rect x="100" y="240" width="200" height="60" rx="8"/>
+      <text x="200" y="275" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="12">SAAS PLATFORM</text>
+      <path d="M200,200 L200,240" stroke-dasharray="5,5"/>
+      
+      <!-- Database -->
+      <rect x="0" y="180" width="80" height="40" rx="8"/>
+      <text x="40" y="205" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10">DB</text>
+      <path d="M80,200 L100,140" stroke-dasharray="5,5"/>
+      
+      <!-- API Gateway -->
+      <rect x="320" y="180" width="80" height="40" rx="8"/>
+      <text x="360" y="205" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10">API</text>
+      <path d="M320,200 L300,140" stroke-dasharray="5,5"/>
+    </g>
+  </g>
+  
+  <!-- Floating data points -->
+  <g fill="#1a7cff" filter="url(#glow)">
+    <circle cx="120" cy="120" r="4"/>
+    <circle cx="680" cy="180" r="4"/>
+    <circle cx="640" cy="420" r="4"/>
+    <circle cx="160" cy="480" r="4"/>
+    <circle cx="720" cy="320" r="4"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M120,120 Q300,60 680,180"/>
+    <path d="M160,480 Q400,380 640,420"/>
+    <path d="M120,120 Q200,300 160,480"/>
+  </g>
+</svg>
+===== END FILE: public/images/hero-visualization.svg =====
+
+===== FILE: public/logo.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="80" viewBox="0 0 300 80">
+  <defs>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D99FF"/>
+      <stop offset="1" stop-color="#0A4699"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Icon -->
+  <g transform="translate(10,10)">
+    <rect x="0" y="0" width="60" height="60" rx="15" fill="url(#logoGrad)"/>
+    <!-- Technical grid pattern -->
+    <g stroke="#fff" stroke-opacity="0.8" fill="none" stroke-width="2">
+      <rect x="12" y="16" width="36" height="24" rx="6"/>
+      <circle cx="30" cy="28" r="16" opacity="0.5"/>
+      <path d="M6,28 h48" opacity="0.3"/>
+      <path d="M30,4 v48" opacity="0.3"/>
+      <circle cx="30" cy="28" r="4" fill="#fff"/>
+    </g>
+    <!-- Corner indicator -->
+    <rect x="42" y="8" width="12" height="8" rx="2" fill="#fff" fill-opacity="0.9"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="85" y="45" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#fff">
+    Ferreira CTO
+  </text>
+</svg>
+===== END FILE: public/logo.svg =====
+
+===== FILE: public/favicon.svg =====
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gradient" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#4D99FF"/>
+      <stop offset="1" stop-color="#0A4699"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#gradient)"/>
+  <g transform="translate(12,12)" stroke="#fff" stroke-width="2" fill="none">
+    <rect x="8" y="6" width="24" height="18" rx="4"/>
+    <circle cx="20" cy="15" r="12" opacity="0.6"/>
+    <path d="M4,15 h32" opacity="0.4"/>
+    <path d="M20,3 v24" opacity="0.4"/>
+    <circle cx="20" cy="15" r="3" fill="#fff"/>
+  </g>
+</svg>
+===== END FILE: public/favicon.svg =====
+
+===== FILE: lib/mailer.ts =====
+import type { ContactInput } from "./validators";
+
+        export async function sendContactEmail(data: ContactInput, clientIp?: string) {
+          // Honeypot check
+          if (data.company && data.company.trim().length > 0) {
+            console.log(`[ContactForm] Honeypot triggered from IP: ${clientIp}`);
+            return { success: true, skipped: true };
+          }
+
+          const to = process.env.CONTACT_TO_EMAIL || "contact@ferreiracto.com";
+          const from = process.env.CONTACT_FROM_EMAIL || "Ferreira CTO <no-reply@ferreiracto.com>";
+
+          // Try Resend first
+          const resendKey = process.env.RESEND_API_KEY;
+          if (resendKey) {
+            try {
+                const { Resend } = await import("resend");
+              const resend = new Resend(resendKey);
+
+              const subject = `New Inquiry from ${data.name}`;
+              const html = `
+                <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
+                  <h2 style="color: #1a7cff;">New Contact Form Submission</h2>
+
+                  <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+                    <p><strong>Company:</strong> ${data.org || 'Not provided'}</p>
+                    ${clientIp ? `<p><strong>IP:</strong> ${clientIp}</p>` : ''}
+                  </div>
+
+                  <div style="margin: 20px 0;">
+                    <strong>Message:</strong>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-top: 10px; white-space: pre-wrap;">${data.message}</div>
+                  </div>
+
+                  <p style="color: #64748b; font-size: 14px; margin-top: 30px;">
+                    Sent via Ferreira CTO contact form
+                  </p>
+                </div>
+              `;
+
+              const result = await resend.emails.send({
+                from,
+                to,
+                subject,
+                html,
+                text: `Name: ${data.name}
+Email: ${data.email}
+Company: ${data.org || 'Not provided'}
+
+Message:
+${data.message}`
+              });
+
+              console.log(`[ContactForm] Email sent successfully via Resend:`, result);
+              return { success: true, provider: 'resend', result };
+
+            } catch (error) {
+              console.error(`[ContactForm] Resend error:`, error);
+              // Fall through to SMTP
+            }
+          }
+
+          // Fallback to SMTP
+          if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+            try {
+              const nodemailer = await import("nodemailer");
+              const transporter = nodemailer.createTransport({
+                host: process.env.SMTP_HOST,
+                port: Number(process.env.SMTP_PORT || 587),
+                secure: process.env.SMTP_SECURE === "true",
+                auth: {
+                  user: process.env.SMTP_USER,
+                  pass: process.env.SMTP_PASS,
+                },
+              });
+
+              const info = await transporter.sendMail({
+                from,
+                to,
+                subject: `New Inquiry from ${data.name}`,
+                text: `Name: ${data.name}
+Email: ${data.email}
+Company: ${data.org || 'Not provided'}
+
+Message:
+${data.message}
+
+IP: ${clientIp || 'Unknown'}`,
+              });
+
+              console.log(`[ContactForm] Email sent successfully via SMTP:`, info.messageId);
+              return { success: true, provider: 'smtp', info };
+
+            } catch (error) {
+              console.error(`[ContactForm] SMTP error:`, error);
+              throw error;
+            }
+          }
+
+          // No email service configured - log only
+          console.log(`[ContactForm] No email service configured. Message from ${data.name} (${data.email}):`, data.message);
+          return { 
+            success: true, 
+            provider: 'console',
+            message: "Email service not configured. Message logged to server console." 
+          };
+        }
+===== END FILE: lib/mailer.ts =====
+
+===== FILE: lib/utils.ts =====
+import { clsx, type ClassValue } from "clsx";
+
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs);
+}
+
+export function getClientIP(request: Request): string | undefined {
+  // Try various headers for client IP
+  const headers = request.headers;
+
+  return (
+    headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    headers.get('x-real-ip') ||
+    headers.get('cf-connecting-ip') ||
+    headers.get('x-client-ip') ||
+    undefined
+  );
+}
+
+export function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+export function truncate(text: string, length: number): string {
+  if (text.length <= length) return text;
+  return text.slice(0, length).trim() + '...';
+}
+===== END FILE: lib/utils.ts =====
+
+===== FILE: lib/rate-limiter.ts =====
+interface RateLimitEntry {
+  count: number;
+  resetTime: number;
+}
+
+class RateLimiter {
+  private requests = new Map<string, RateLimitEntry>();
+  private limit: number;
+  private windowMs: number;
+
+  constructor(limit: number = 5, windowMs: number = 60 * 1000) {
+    this.limit = limit;
+    this.windowMs = windowMs;
+  }
+
+  check(identifier: string): { allowed: boolean; remaining: number; resetTime: number } {
+    const now = Date.now();
+    const entry = this.requests.get(identifier);
+
+    if (!entry || now > entry.resetTime) {
+      // First request or window expired
+      const newEntry: RateLimitEntry = {
+        count: 1,
+        resetTime: now + this.windowMs
+      };
+      this.requests.set(identifier, newEntry);
+      return {
+        allowed: true,
+        remaining: this.limit - 1,
+        resetTime: newEntry.resetTime
+      };
+    }
+
+    if (entry.count >= this.limit) {
+      return {
+        allowed: false,
+        remaining: 0,
+        resetTime: entry.resetTime
+      };
+    }
+
+    entry.count++;
+    this.requests.set(identifier, entry);
+
+    return {
+      allowed: true,
+      remaining: this.limit - entry.count,
+      resetTime: entry.resetTime
+    };
+  }
+
+  cleanup() {
+    const now = Date.now();
+    for (const [key, entry] of this.requests.entries()) {
+      if (now > entry.resetTime) {
+        this.requests.delete(key);
+      }
+    }
+  }
+}
+
+export const contactRateLimiter = new RateLimiter(
+  Number(process.env.CONTACT_RATE_LIMIT) || 5,
+  15 * 60 * 1000 // 15 minutes
+);
+
+// Cleanup expired entries every hour
+if (typeof setInterval !== 'undefined') {
+  setInterval(() => contactRateLimiter.cleanup(), 60 * 60 * 1000);
+}
+===== END FILE: lib/rate-limiter.ts =====
+
+===== FILE: lib/validators.ts =====
+import { z } from "zod";
+
+export const ContactSchema = z.object({
+  name: z.string()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be less than 100 characters")
+    .trim(),
+  email: z.string()
+    .email("Please enter a valid email address")
+    .max(255, "Email must be less than 255 characters")
+    .trim()
+    .toLowerCase(),
+  org: z.string()
+    .max(100, "Company name must be less than 100 characters")
+    .trim()
+    .optional(),
+  message: z.string()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message must be less than 5000 characters")
+    .trim(),
+  company: z.string().optional(), // Honeypot field
+});
+
+export type ContactInput = z.infer<typeof ContactSchema>;
+===== END FILE: lib/validators.ts =====
+
