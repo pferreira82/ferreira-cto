@@ -7,8 +7,8 @@ import type { ContactInput } from "./validators";
             return { success: true, skipped: true };
           }
 
-          const to = process.env.CONTACT_TO_EMAIL || "contact@ferreiracto.com";
-          const from = process.env.CONTACT_FROM_EMAIL || "Ferreira CTO <no-reply@ferreiracto.com>";
+          const to = process.env.CONTACT_TO_EMAIL || "contact@contact.ferreiracto.com";
+          const from = process.env.CONTACT_FROM_EMAIL || "Ferreira CTO <no-reply@contact.ferreiracto.com>";
 
           // Try Resend first
           const resendKey = process.env.RESEND_API_KEY;
