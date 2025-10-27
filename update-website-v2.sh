@@ -1,3 +1,96 @@
+#!/bin/bash
+
+# Website Update Script - Ferreira CTO Consulting Focus
+# Strategic positioning: Technical advisory for longevity & health robotics
+# Target: VCs, founders, and CTOs in longevity/eldercare/digital health
+# Run this from your project root: bash update-website-v2.sh
+
+set -e  # Exit on error
+
+echo "🚀 Updating Ferreira CTO website with strategic consulting focus..."
+
+# ============================================================================
+# 1. UPDATE METADATA (app/layout.tsx)
+# ============================================================================
+echo "📝 Updating metadata..."
+
+cat > app/layout.tsx << 'EOF'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from '@vercel/analytics/next';
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter"
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "Ferreira CTO — Technical Due Diligence for Longevity & Health Robotics",
+    template: "%s | Ferreira CTO"
+  },
+  description: "Technical due diligence, regulatory readiness, and fractional CTO services for longevity biotech, elder care robotics, and digital health companies. FDA/HIPAA expertise.",
+  keywords: ["Technical Due Diligence", "Longevity", "Health Robotics", "Elder Care", "FDA", "Regulatory Readiness", "Fractional CTO", "Biotech", "Digital Health"],
+  authors: [{ name: "Ferreira CTO" }],
+  creator: "Ferreira CTO",
+  metadataBase: new URL("https://ferreiracto.com"),
+  openGraph: {
+    title: "Ferreira CTO — Technical Advisory for Longevity & Health Robotics",
+    description: "Technical due diligence and regulatory readiness for longevity and health robotics investments.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Ferreira CTO"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ferreira CTO — Technical Due Diligence for Longevity",
+    description: "Technical advisory for longevity biotech and health robotics companies"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png"
+  }
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white antialiased ${inter.className}`}>
+        <div className="gradient-mesh min-h-screen">
+          {children}
+          <SpeedInsights />
+          <Analytics />
+        </div>
+      </body>
+    </html>
+  );
+}
+EOF
+
+# ============================================================================
+# 2. UPDATE MAIN PAGE (app/page.tsx)
+# ============================================================================
+echo "📄 Updating main page with consulting-first messaging..."
+
+cat > app/page.tsx << 'EOF'
 'use client';
 import { ArrowRight, CheckCircle, Zap, Shield, Target, Heart, Activity, FileCheck, Clock, Users, TrendingUp } from "lucide-react";
 import Header from "@/components/Header";
@@ -381,3 +474,260 @@ export default function Home() {
     </div>
   );
 }
+EOF
+
+# ============================================================================
+# 3. CREATE SVG IMAGES (if they don't exist)
+# ============================================================================
+echo "🎨 Ensuring case study images exist..."
+
+mkdir -p public/images
+
+# OrbCare Robot
+if [ ! -f "public/images/case-orbcare.svg" ]; then
+  echo "  Creating OrbCare SVG..."
+  cat > public/images/case-orbcare.svg << 'EOF'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="orbcareGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#orbcareGrad)" opacity="0.1"/>
+  
+  <g transform="translate(120,60)">
+    <circle cx="80" cy="60" r="50" fill="#1a7cff" opacity="0.3"/>
+    <circle cx="80" cy="60" r="45" stroke="#60a5fa" stroke-width="3" fill="none"/>
+    
+    <circle cx="65" cy="50" r="8" fill="#60a5fa"/>
+    <circle cx="95" cy="50" r="8" fill="#60a5fa"/>
+    
+    <path d="M 60,75 Q 80,85 100,75" stroke="#60a5fa" stroke-width="3" fill="none" stroke-linecap="round"/>
+    
+    <rect x="30" y="110" width="100" height="20" rx="10" fill="#60a5fa" opacity="0.6"/>
+    
+    <g transform="translate(200,30)">
+      <rect x="0" y="0" width="70" height="100" rx="8" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.6"/>
+      <text x="35" y="20" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">VITALS</text>
+      <text x="5" y="40" fill="#60a5fa" font-size="8">HR: 72 bpm</text>
+      <text x="5" y="55" fill="#60a5fa" font-size="8">BP: 120/80</text>
+      <text x="5" y="70" fill="#60a5fa" font-size="8">SpO2: 98%</text>
+      <text x="5" y="85" fill="#60a5fa" font-size="8">Temp: 98.6°F</text>
+    </g>
+  </g>
+  
+  <g stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3,3">
+    <path d="M140,90 L230,35"/>
+    <path d="M140,95 L230,105"/>
+  </g>
+</svg>
+EOF
+fi
+
+# Lumi Health
+if [ ! -f "public/images/case-lumi.svg" ]; then
+  echo "  Creating Lumi SVG..."
+  cat > public/images/case-lumi.svg << 'EOF'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="lumiHealthGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#lumiHealthGrad)" opacity="0.1"/>
+  
+  <g transform="translate(50,30)">
+    <rect x="0" y="0" width="300" height="180" rx="20" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.7"/>
+    
+    <g transform="translate(30,40)">
+      <circle cx="30" cy="30" r="25" fill="#1a7cff" opacity="0.8"/>
+      <path d="M 20,30 L 25,30 L 27,25 L 30,38 L 33,25 L 35,30 L 40,30" 
+            stroke="#fff" stroke-width="2" fill="none"/>
+      
+      <circle cx="30" cy="30" r="30" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.3"/>
+      <circle cx="30" cy="30" r="35" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.2"/>
+    </g>
+    
+    <g fill="#60a5fa" opacity="0.6">
+      <rect x="100" y="30" width="180" height="16" rx="8"/>
+      <text x="110" y="42" fill="#fff" font-size="10" opacity="0.9">Medication Reminder: 8am</text>
+      
+      <rect x="100" y="55" width="160" height="16" rx="8"/>
+      <text x="110" y="67" fill="#fff" font-size="10" opacity="0.9">Health Tip: Stay hydrated</text>
+      
+      <rect x="100" y="100" width="170" height="16" rx="8"/>
+      <text x="110" y="112" fill="#fff" font-size="10" opacity="0.9">Activity Goal: 65% complete</text>
+      
+      <rect x="100" y="125" width="150" height="16" rx="8"/>
+      <text x="110" y="137" fill="#fff" font-size="10" opacity="0.9">Dr. Visit: Tomorrow 2pm</text>
+    </g>
+    
+    <g transform="translate(20,120)">
+      <rect x="0" y="0" width="60" height="50" rx="8" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.5"/>
+      <text x="30" y="15" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold">METRICS</text>
+      <text x="30" y="28" text-anchor="middle" fill="#60a5fa" font-size="7">Steps: 8.2K</text>
+      <text x="30" y="38" text-anchor="middle" fill="#60a5fa" font-size="7">Sleep: 7.5h</text>
+      <text x="30" y="48" text-anchor="middle" fill="#60a5fa" font-size="7">HR: 68 bpm</text>
+    </g>
+  </g>
+</svg>
+EOF
+fi
+
+# Nanotech AI
+if [ ! -f "public/images/case-nanotech.svg" ]; then
+  echo "  Creating Nanotech AI SVG..."
+  cat > public/images/case-nanotech.svg << 'EOF'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="nanoLongevityGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#nanoLongevityGrad)" opacity="0.1"/>
+  
+  <g transform="translate(40,60)" stroke="#60a5fa" stroke-width="2" fill="none">
+    <circle cx="50" cy="50" r="10" fill="#1a7cff" opacity="0.8"/>
+    <circle cx="90" cy="30" r="10" fill="#1a7cff" opacity="0.8"/>
+    <circle cx="90" cy="70" r="10" fill="#1a7cff" opacity="0.8"/>
+    <circle cx="130" cy="50" r="10" fill="#1a7cff" opacity="0.8"/>
+    
+    <line x1="60" y1="50" x2="80" y2="30"/>
+    <line x1="60" y1="50" x2="80" y2="70"/>
+    <line x1="100" y1="30" x2="120" y2="50"/>
+    <line x1="100" y1="70" x2="120" y2="50"/>
+    
+    <circle cx="170" cy="30" r="8" fill="#1a7cff" opacity="0.6"/>
+    <circle cx="170" cy="70" r="8" fill="#1a7cff" opacity="0.6"/>
+    <line x1="140" y1="50" x2="162" y2="30"/>
+    <line x1="140" y1="50" x2="162" y2="70"/>
+  </g>
+  
+  <g transform="translate(220,40)">
+    <rect x="0" y="0" width="150" height="160" rx="12" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.6"/>
+    <text x="75" y="20" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="bold">AI PREDICTIONS</text>
+    
+    <g transform="translate(15,35)" fill="#60a5fa" opacity="0.7">
+      <text x="0" y="0" font-size="9" font-weight="bold">Biocompatibility</text>
+      <rect x="0" y="5" width="120" height="8" rx="4" opacity="0.3"/>
+      <rect x="0" y="5" width="110" height="8" rx="4"/>
+      <text x="125" y="12" font-size="8">94.2%</text>
+      
+      <text x="0" y="28" font-size="9" font-weight="bold">Conductivity</text>
+      <rect x="0" y="33" width="120" height="8" rx="4" opacity="0.3"/>
+      <rect x="0" y="33" width="95" height="8" rx="4"/>
+      <text x="125" y="40" font-size="8">89.1%</text>
+      
+      <text x="0" y="56" font-size="9" font-weight="bold">Longevity</text>
+      <rect x="0" y="61" width="120" height="8" rx="4" opacity="0.3"/>
+      <rect x="0" y="61" width="105" height="8" rx="4"/>
+      <text x="125" y="68" font-size="8">91.5%</text>
+      
+      <text x="0" y="84" font-size="9" font-weight="bold">Anti-Fibrotic</text>
+      <rect x="0" y="89" width="120" height="8" rx="4" opacity="0.3"/>
+      <rect x="0" y="89" width="100" height="8" rx="4"/>
+      <text x="125" y="96" font-size="8">87.8%</text>
+    </g>
+    
+    <g transform="translate(0,140)">
+      <text x="75" y="0" text-anchor="middle" fill="#60a5fa" font-size="10">Candidates: 5,247</text>
+    </g>
+  </g>
+  
+  <g stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="3,3">
+    <path d="M210,110 L220,110"/>
+  </g>
+</svg>
+EOF
+fi
+
+# Biomarker Platform
+if [ ! -f "public/images/case-biomarker.svg" ]; then
+  echo "  Creating Biomarker Platform SVG..."
+  cat > public/images/case-biomarker.svg << 'EOF'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <defs>
+    <linearGradient id="biomarkerGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A4699"/>
+      <stop offset="1" stop-color="#4D99FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="20" fill="url(#biomarkerGrad)" opacity="0.1"/>
+  
+  <g transform="translate(150,80)">
+    <circle cx="50" cy="50" r="40" stroke="#60a5fa" stroke-width="3" fill="none" opacity="0.8"/>
+    <circle cx="50" cy="50" r="25" fill="#1a7cff" opacity="0.3"/>
+    <text x="50" y="55" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">DATA</text>
+    <text x="50" y="65" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">HUB</text>
+  </g>
+  
+  <g stroke="#60a5fa" stroke-width="2" fill="none">
+    <rect x="30" y="30" width="70" height="40" rx="8" opacity="0.6"/>
+    <text x="65" y="55" text-anchor="middle" fill="#60a5fa" font-size="9">Wearables</text>
+    <path d="M100,50 L150,100" stroke-dasharray="3,3" opacity="0.5"/>
+    
+    <rect x="30" y="150" width="70" height="40" rx="8" opacity="0.6"/>
+    <text x="65" y="175" text-anchor="middle" fill="#60a5fa" font-size="9">Lab Tests</text>
+    <path d="M100,170 L150,150" stroke-dasharray="3,3" opacity="0.5"/>
+    
+    <rect x="300" y="30" width="70" height="40" rx="8" opacity="0.6"/>
+    <text x="335" y="55" text-anchor="middle" fill="#60a5fa" font-size="9">Genetics</text>
+    <path d="M300,50 L250,100" stroke-dasharray="3,3" opacity="0.5"/>
+    
+    <rect x="300" y="150" width="70" height="40" rx="8" opacity="0.6"/>
+    <text x="335" y="175" text-anchor="middle" fill="#60a5fa" font-size="9">Environment</text>
+    <path d="M300,170 L250,150" stroke-dasharray="3,3" opacity="0.5"/>
+  </g>
+  
+  <g transform="translate(130,180)">
+    <rect x="0" y="0" width="140" height="45" rx="8" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.6"/>
+    <text x="70" y="18" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">INSIGHTS</text>
+    <g transform="translate(10,25)">
+      <rect x="0" y="0" width="35" height="4" rx="2" fill="#60a5fa" opacity="0.7"/>
+      <rect x="40" y="0" width="25" height="4" rx="2" fill="#60a5fa" opacity="0.7"/>
+      <rect x="70" y="0" width="45" height="4" rx="2" fill="#60a5fa" opacity="0.7"/>
+    </g>
+  </g>
+</svg>
+EOF
+fi
+
+echo ""
+echo "✅ Website updated successfully with STRATEGIC CONSULTING FOCUS!"
+echo ""
+echo "📋 Key Improvements from Previous Version:"
+echo "  ✓ Hero now emphasizes 'Technical Due Diligence' as primary value prop"
+echo "  ✓ Added 'Who I Work With' section clearly targeting VCs, Founders, and Technical Leaders"
+echo "  ✓ Consulting packages now include specific CTAs and 'Ideal for' descriptions"
+echo "  ✓ Case studies repositioned with explicit 'proof of expertise' framing"
+echo "  ✓ Added 'Why Technical Due Diligence Matters' section with investor/founder benefits"
+echo "  ✓ Stronger action-oriented language throughout (de-risk, fast-track, etc.)"
+echo "  ✓ Mission-aligned messaging emphasizing longevity/healthspan commitment"
+echo ""
+echo "💼 Consulting Services Front and Center:"
+echo "  1. Technical Due Diligence ($25K–$75K) - 'De-risk your next investment'"
+echo "  2. Regulatory & AI Readiness ($15K–$45K) - 'Fast-track your FDA readiness'"
+echo "  3. Fractional Engineering Leadership ($8K–$15K/mo) - 'Get CTO-level guidance'"
+echo ""
+echo "🎯 Target Audience Messaging:"
+echo "  → VCs & Angels: Technical risk assessment, founding team evaluation, regulatory readiness"
+echo "  → Founders & CTOs: FDA preparation, investor narratives, architectural guidance"
+echo "  → Technical Leaders: Fractional CTO services, compliance navigation, scaling support"
+echo ""
+echo "🚀 Next Steps:"
+echo "  1. Review changes: git diff"
+echo "  2. Test locally: npm run dev"
+echo "  3. Update LinkedIn headline to match (see previous chat for options)"
+echo "  4. Commit: git add . && git commit -m 'Strategic pivot: consulting-first positioning'"
+echo "  5. Deploy: git push"
+echo ""
+echo "🎓 Remember from your strategic plan:"
+echo "  • This website supports your immediate revenue goal ($10K/mo by week 12)"
+echo "  • Clear services + pricing = easier sales conversations"
+echo "  • Case studies prove expertise without undermining consulting focus"
+echo "  • Ready to start outreach on Monday with this professional foundation"
+echo ""
+echo "💪 Your site now clearly positions you as THE technical advisor for longevity & health robotics!"

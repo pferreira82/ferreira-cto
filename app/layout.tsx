@@ -12,25 +12,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Ferreira CTO Inc. — Technical Advisory for Longevity & Health Robotics",
-    template: "%s | Ferreira CTO Inc."
+    default: "Ferreira CTO — Technical Due Diligence for Longevity & Health Robotics",
+    template: "%s | Ferreira CTO"
   },
-  description: "Technical due diligence and regulatory readiness for longevity biotech, health robotics, and digital health companies. Fractional CTO services for life extension technology.",
-  keywords: ["Longevity", "Health Robotics", "Technical Due Diligence", "Regulatory Readiness", "FDA", "Biotech", "Elder Care", "Fractional CTO"],
-  authors: [{ name: "Ferreira CTO Inc." }],
-  creator: "Ferreira CTO Inc.",
+  description: "Technical due diligence, regulatory readiness, and fractional CTO services for longevity biotech, elder care robotics, and digital health companies. FDA/HIPAA expertise.",
+  keywords: ["Technical Due Diligence", "Longevity", "Health Robotics", "Elder Care", "FDA", "Regulatory Readiness", "Fractional CTO", "Biotech", "Digital Health"],
+  authors: [{ name: "Ferreira CTO" }],
+  creator: "Ferreira CTO",
   metadataBase: new URL("https://ferreiracto.com"),
   openGraph: {
-    title: "Ferreira CTO Inc. — Technical Advisory for Longevity & Health Robotics",
-    description: "Technical due diligence and regulatory readiness for longevity companies.",
+    title: "Ferreira CTO — Technical Advisory for Longevity & Health Robotics",
+    description: "Technical due diligence and regulatory readiness for longevity and health robotics investments.",
     type: "website",
     locale: "en_US",
-    siteName: "Ferreira CTO Inc."
+    siteName: "Ferreira CTO"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ferreira CTO Inc.",
-    description: "Technical advisory for longevity and health robotics companies"
+    title: "Ferreira CTO — Technical Due Diligence for Longevity",
+    description: "Technical advisory for longevity biotech and health robotics companies"
   },
   robots: {
     index: true,
