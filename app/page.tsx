@@ -365,7 +365,7 @@ export default function Home() {
               </a>
               <span className="text-slate-600">|</span>
               <a 
-                href="https://linkedin.com/in/yourusername" 
+                href="https://www.linkedin.com/in/peter-ferreira-0177061b/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 font-semibold"
