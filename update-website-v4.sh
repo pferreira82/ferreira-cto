@@ -1,3 +1,19 @@
+#!/bin/bash
+
+# Website Update Script v4 - Tiered Pricing with Team Orchestration
+# Key update: Clear pricing tiers showing specialist coordination value
+# Run this from your project root: bash update-website-v4-tiered-pricing.sh
+
+set -e  # Exit on error
+
+echo "🚀 Updating Ferreira CTO website with TIERED PRICING..."
+
+# ============================================================================
+# UPDATE MAIN PAGE (app/page.tsx) - COMPLETE FILE
+# ============================================================================
+echo "📄 Updating main page with tiered pricing structure..."
+
+cat > app/page.tsx << 'EOFPAGE'
 'use client';
 import { ArrowRight, CheckCircle, Zap, Shield, Target, Heart, Activity, FileCheck, Clock, Users, TrendingUp, Network } from "lucide-react";
 import Header from "@/components/Header";
@@ -614,3 +630,64 @@ export default function Home() {
     </div>
   );
 }
+EOFPAGE
+
+echo ""
+echo "✅ Website updated with TIERED PRICING structure!"
+echo ""
+echo "📋 New Pricing Tiers:"
+echo ""
+echo "💼 TECHNICAL DUE DILIGENCE:"
+echo "  Foundation:     $40K–$55K  (1-2 weeks) - Core technical assessment only"
+echo "  Standard:       $70K–$100K (2-3 weeks) - Core + 1 specialist [Most Popular]"
+echo "  Comprehensive:  $120K–$175K (3-4 weeks) - Full specialist team"
+echo ""
+echo "🛡️  REGULATORY & AI READINESS:"
+echo "  Gap Analysis:        $25K–$35K  (1-2 weeks) - Identify what's needed"
+echo "  Implementation Ready: $50K–$75K  (2-3 weeks) - Gap + regulatory consultant [Most Popular]"
+echo "  Submission Ready:     $90K–$130K (3-4 weeks) - Full team + documentation"
+echo ""
+echo "⏰ FRACTIONAL CTO:"
+echo "  Advisory: $10K/mo (1 day/week) - Strategic guidance"
+echo "  Engaged:  $16K/mo (2 days/week) - Hands-on leadership [Most Popular]"
+echo "  + Specialist access: $3K-$5K per engagement"
+echo ""
+echo "✨ Key Benefits of This Pricing Structure:"
+echo ""
+echo "  1. TRANSPARENCY - Clients see exactly what they're paying for"
+echo "  2. FLEXIBILITY - Start low, scale up as needed"
+echo "  3. VALUE JUSTIFICATION - Higher tiers clearly show specialist coordination"
+echo "  4. ANCHORING - $120K Comprehensive makes $70K Standard look reasonable"
+echo "  5. UPSELLING PATH - Easy to move clients from Foundation → Standard"
+echo ""
+echo "💡 Sales Strategy:"
+echo ""
+echo "  → Early-stage startups → Start with Foundation tier"
+echo "  → Series A preparing for FDA → Pitch Standard tier"
+echo "  → VCs on high-stakes deals → Lead with Comprehensive tier"
+echo "  → Complex situations → Custom pricing above top tier"
+echo ""
+echo "🎯 In Discovery Calls:"
+echo ""
+echo "  'Based on what you've shared, I'd recommend the Standard tier—that gives"
+echo "  you my full technical assessment plus bringing in my FDA regulatory consultant"
+echo "  to map out your 510(k) pathway. That's $70K-$100K depending on complexity."
+echo "  If you just need the technical piece first, we can start with Foundation"
+echo "  at $40K-$55K and layer in regulatory later.'"
+echo ""
+echo "🚀 Next Steps:"
+echo "  1. Test locally: npm run dev"
+echo "  2. Review the tiered layout carefully"
+echo "  3. Deploy: git add . && git commit -m 'Tiered pricing structure' && git push"
+echo "  4. Practice pitching each tier in mock sales calls"
+echo "  5. Track which tiers prospects choose (adjust pricing if needed)"
+echo ""
+echo "📊 Track These Metrics After Launch:"
+echo "  • Which tier do most prospects choose? (adjust if everyone picks lowest)"
+echo "  • Do prospects push back on price? (if no, you're too low)"
+echo "  • Are you closing 20-40% of qualified leads? (sweet spot)"
+echo "  • Can you confidently explain why each tier is priced where it is?"
+echo ""
+echo "💰 Remember: These prices now JUSTIFY bringing in specialists."
+echo "   You're not a $40K/week solo consultant anymore—you're a"
+echo "   $120K+ technical advisory firm with a curated expert network."
