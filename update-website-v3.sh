@@ -1,3 +1,96 @@
+#!/bin/bash
+
+# Website Update Script v3 - Team Orchestration Focus
+# Positioning: Technical quarterback who assembles expert teams
+# Key differentiation: Curated specialist network vs. solo consultant
+# Run this from your project root: bash update-website-v3-team-approach.sh
+
+set -e  # Exit on error
+
+echo "🚀 Updating Ferreira CTO website with team orchestration positioning..."
+
+# ============================================================================
+# 1. UPDATE METADATA (app/layout.tsx)
+# ============================================================================
+echo "📝 Updating metadata..."
+
+cat > app/layout.tsx << 'EOF'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from '@vercel/analytics/next';
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter"
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "Ferreira CTO — Technical Due Diligence for Longevity & Health Robotics",
+    template: "%s | Ferreira CTO"
+  },
+  description: "Technical due diligence, regulatory readiness, and fractional CTO services for longevity biotech, elder care robotics, and digital health companies. FDA/HIPAA expertise with curated specialist network.",
+  keywords: ["Technical Due Diligence", "Longevity", "Health Robotics", "Elder Care", "FDA", "Regulatory Readiness", "Fractional CTO", "Biotech", "Digital Health"],
+  authors: [{ name: "Ferreira CTO" }],
+  creator: "Ferreira CTO",
+  metadataBase: new URL("https://ferreiracto.com"),
+  openGraph: {
+    title: "Ferreira CTO — Technical Advisory for Longevity & Health Robotics",
+    description: "Technical due diligence and regulatory readiness for longevity and health robotics investments.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Ferreira CTO"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ferreira CTO — Technical Due Diligence for Longevity",
+    description: "Technical advisory for longevity biotech and health robotics companies"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png"
+  }
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white antialiased ${inter.className}`}>
+        <div className="gradient-mesh min-h-screen">
+          {children}
+          <SpeedInsights />
+          <Analytics />
+        </div>
+      </body>
+    </html>
+  );
+}
+EOF
+
+# ============================================================================
+# 2. UPDATE MAIN PAGE (app/page.tsx)
+# ============================================================================
+echo "📄 Updating main page with team orchestration messaging..."
+
+cat > app/page.tsx << 'EOF'
 'use client';
 import { ArrowRight, CheckCircle, Zap, Shield, Target, Heart, Activity, FileCheck, Clock, Users, TrendingUp, Network } from "lucide-react";
 import Header from "@/components/Header";
@@ -468,3 +561,53 @@ export default function Home() {
     </div>
   );
 }
+EOF
+
+echo ""
+echo "✅ Website updated with TEAM ORCHESTRATION positioning!"
+echo ""
+echo "📋 Key Changes - Positioning You as Technical Quarterback:"
+echo ""
+echo "🎯 HERO SECTION:"
+echo "  • New tagline: 'Your Technical Quarterback for Longevity & Health Robotics'"
+echo "  • Emphasis on 'assembling the right experts' vs. solo consultant"
+echo "  • Added 'Curated Expert Network' to trust badges"
+echo ""
+echo "🤝 NEW 'HOW I WORK' SECTION:"
+echo "  • Transparent: 'I Don't Pretend to Know Everything—And That's the Point'"
+echo "  • Explains value of orchestrating specialists vs. doing everything"
+echo "  • Lists expert network areas: FDA/Regulatory, Clinical/QA, Security, Domain Experts"
+echo "  • Emphasizes 'one point of contact' advantage"
+echo ""
+echo "💼 UPDATED CONSULTING PACKAGES:"
+echo "  • Each package now mentions bringing in specialists"
+echo "  • Technical DD: 'Expert specialist reports included'"
+echo "  • Regulatory Readiness: 'Working with my network of regulatory consultants'"
+echo "  • Fractional CTO: 'Access to my specialist network + on-demand introductions'"
+echo ""
+echo "✨ MESSAGING IMPROVEMENTS:"
+echo "  • 'Who I Work With' emphasizes coordination vs. vendor management"
+echo "  • 'Why This Approach Works' reframed around orchestration benefits"
+echo "  • Consistent 'quarterback' metaphor throughout"
+echo "  • Transparent about when to bring in experts (builds trust)"
+echo ""
+echo "🎓 Strategic Positioning:"
+echo "  ✓ Shows humility and integrity (doesn't pretend to know everything)"
+echo "  ✓ Positions you as MORE valuable (curating expertise, not just selling yours)"
+echo "  ✓ Differentiates from solo consultants (you have a bench)"
+echo "  ✓ Opens door to larger engagements (can scale with team)"
+echo "  ✓ Builds trust (transparent about collaboration)"
+echo ""
+echo "🚀 Next Steps:"
+echo "  1. Review the changes: cat /home/claude/update-website-v3-team-approach.sh"
+echo "  2. Make it executable: chmod +x update-website-v3-team-approach.sh"
+echo "  3. Run it: bash update-website-v3-team-approach.sh"
+echo "  4. Test locally: npm run dev"
+echo "  5. Deploy when ready: git add . && git commit -m 'Team orchestration positioning' && git push"
+echo ""
+echo "💡 This positioning helps you handle 'I don't know' situations confidently:"
+echo "  → Instead of: 'I'm not sure about that'"
+echo "  → You say: 'That's exactly when I bring in my FDA regulatory consultant who specializes in [X]'"
+echo ""
+echo "🎯 You're now positioned as the CLIENT'S ADVOCATE who assembles the best team,"
+echo "   not as a solo consultant trying to be an expert in everything."

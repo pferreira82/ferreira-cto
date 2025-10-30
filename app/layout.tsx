@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     default: "Ferreira CTO — Technical Due Diligence for Longevity & Health Robotics",
     template: "%s | Ferreira CTO"
   },
-  description: "Technical due diligence, regulatory readiness, and fractional CTO services for longevity biotech, elder care robotics, and digital health companies. FDA/HIPAA expertise.",
+  description: "Technical due diligence, regulatory readiness, and fractional CTO services for longevity biotech, elder care robotics, and digital health companies. FDA/HIPAA expertise with curated specialist network.",
   keywords: ["Technical Due Diligence", "Longevity", "Health Robotics", "Elder Care", "FDA", "Regulatory Readiness", "Fractional CTO", "Biotech", "Digital Health"],
   authors: [{ name: "Ferreira CTO" }],
   creator: "Ferreira CTO",
