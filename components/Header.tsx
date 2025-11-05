@@ -1,105 +1,86 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Logo } from './Logo';
-
-const navigation = [
-  { name: 'Services', href: '#services' },
-  { name: 'Case Studies', href: '#case-studies' },
-  { name: 'Process', href: '#process' },
-] as const;
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+  const navLinks = [
+    { href: '#clients', label: 'Who I Work With' },
+    { href: '#approach', label: 'How I Work' },
+    { href: '#consulting', label: 'Services' },
+    { href: '#expertise', label: 'Expertise' },
+    { href: '#contact', label: 'Contact' },
+  ];
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollTo = (id: string) => {
-    const element = document.getElementById(id);
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    
+    const targetId = href.substring(1);
+    const element = document.getElementById(targetId);
+    
     if (element) {
-      const headerHeight = 80; // Account for sticky header
-      const elementPosition = element.offsetTop - headerHeight;
-
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
-      setIsMobileMenuOpen(false);
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <header 
-      className={`sticky top-0 z-50 border-b border-white/10 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-slate-950/90 backdrop-blur-xl shadow-lg' 
-          : 'bg-slate-950/70 backdrop-blur-sm'
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-6 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-lg border-b border-slate-800">
+      <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Logo />
+          {/* Logo */}
+          <a 
+            href="/"
+            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent"
+          >
+            Ferreira CTO
+          </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navigation.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollTo(item.href.slice(1))}
-                className="text-sm text-slate-300 transition-colors hover:text-white focus:outline-none focus:text-white"
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-slate-300 hover:text-white transition-colors cursor-pointer"
               >
-                {item.name}
-              </button>
+                {link.label}
+              </a>
             ))}
-            <button
-              onClick={() => scrollTo('contact')}
-              className="btn-primary"
-            >
-              Contact
-            </button>
-          </nav>
+          </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-slate-300 hover:text-white"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-white/10">
-            <div className="flex flex-col space-y-3 pt-4">
-              {navigation.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollTo(item.href.slice(1))}
-                  className="text-left text-slate-300 hover:text-white transition-colors py-2 focus:outline-none focus:text-white"
-                >
-                  {item.name}
-                </button>
-              ))}
-              <button
-                onClick={() => scrollTo('contact')}
-                className="btn-primary mt-3 w-fit"
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 space-y-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="block text-slate-300 hover:text-white transition-colors cursor-pointer"
               >
-                Contact
-              </button>
-            </div>
-          </nav>
+                {link.label}
+              </a>
+            ))}
+          </div>
         )}
-      </div>
+      </nav>
     </header>
   );
 }

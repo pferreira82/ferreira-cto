@@ -1,43 +1,23 @@
-import { ReactNode } from 'react';
-
 interface SectionProps {
   id?: string;
-  eyebrow?: string;
   title: string;
   subtitle?: string;
-  children: ReactNode;
-  className?: string;
+  children: React.ReactNode;
 }
 
-export default function Section({ 
-  id, 
-  eyebrow, 
-  title, 
-  subtitle, 
-  children,
-  className = ""
-}: SectionProps) {
+export default function Section({ id, title, subtitle, children }: SectionProps) {
   return (
     <section 
-      id={id} 
-      className={`mx-auto max-w-7xl px-6 py-24 ${className}`}
+      id={id}
+      className="container mx-auto px-6 py-16"
     >
-      <div className="max-w-3xl mb-16 animate-slide-up">
-        {eyebrow && (
-          <div className="inline-flex items-center rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-300 tracking-wide uppercase">
-            {eyebrow}
-          </div>
-        )}
-        <h2 className="text-3xl md:text-5xl font-bold leading-tight mt-4 text-balance">
-          {title}
-        </h2>
-        {subtitle && (
-          <p className="text-lg text-slate-300 mt-6 leading-relaxed text-balance">
-            {subtitle}
-          </p>
-        )}
-      </div>
-      <div className="animate-fade-in">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">{title}</h2>
+          {subtitle && (
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">{subtitle}</p>
+          )}
+        </div>
         {children}
       </div>
     </section>
