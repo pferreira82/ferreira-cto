@@ -607,10 +607,10 @@ export default function Home() {
             <p className="text-slate-400 mb-4">Prefer email or LinkedIn?</p>
             <div className="flex justify-center gap-6">
               <a 
-                href="mailto:contact@ferreiracto.com" 
+                href="mailto:peter@ferreiracto.com"
                 className="text-blue-400 hover:text-blue-300 font-semibold"
               >
-                contact@ferreiracto.com
+                peter@ferreiracto.com
               </a>
               <span className="text-slate-600">|</span>
               <a 

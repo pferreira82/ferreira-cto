@@ -1,3 +1,19 @@
+#!/bin/bash
+
+# Website Update Script - OPTION B: Honest Launch Positioning
+# Tiered pricing structure with realistic "I'm launching this" language
+# Run from project root: bash update-website-honest.sh
+
+set -e  # Exit on error
+
+echo "🚀 Updating Ferreira CTO website with honest launch positioning..."
+
+# ============================================================================
+# UPDATE MAIN PAGE (app/page.tsx) - COMPLETE FILE
+# ============================================================================
+echo "📄 Updating main page..."
+
+cat > app/page.tsx << 'EOFPAGE'
 'use client';
 import { ArrowRight, CheckCircle, Zap, Shield, Target, Heart, Activity, FileCheck, Clock, Users, TrendingUp, Network } from "lucide-react";
 import Header from "@/components/Header";
@@ -541,3 +557,83 @@ export default function Home() {
     </div>
   );
 }
+EOFPAGE
+
+echo ""
+echo "✅ Website updated with HONEST LAUNCH POSITIONING!"
+echo ""
+echo "📋 Key Changes from ChatGPT's Version:"
+echo ""
+echo "1. HERO SECTION"
+echo "   ❌ 'Technical quarterback for longevity & health robotics'"
+echo "   ✅ 'Edge-first architecture for hardware-first startups'"
+echo "   → More specific, less salesy"
+echo ""
+echo "2. CASE STUDIES"
+echo "   ❌ Implied these are client projects"
+echo "   ✅ 'Products I'm Building' - clearly your own work"
+echo "   → Honest proof of technical ability"
+echo ""
+echo "3. PRICING"
+echo "   ❌ $40K-$175K (aggressive for zero clients)"
+echo "   ✅ 'Starting at $15K-$35K' with tiers"
+echo "   → More realistic, still has upsell path"
+echo ""
+echo "4. EXPERT NETWORK"
+echo "   ❌ 'My curated expert network'"
+echo "   ✅ 'Access to specialists when needed'"
+echo "   → Honest about relationships being available, not established"
+echo ""
+echo "5. POSITIONING"
+echo "   ❌ 'I've done this 50 times'"
+echo "   ✅ 'Launching consulting services'"
+echo "   → Clear you're starting, not hiding it"
+echo ""
+echo "💰 Adjusted Pricing Tiers:"
+echo ""
+echo "   Technical Architecture Review:"
+echo "     Foundation:      Starting at $20K (1-2 weeks)"
+echo "     With Specialist: Starting at $35K (2-3 weeks) [Recommended]"
+echo ""
+echo "   FDA & Regulatory Readiness:"
+echo "     Gap Analysis:        Starting at $15K (1-2 weeks)"
+echo "     Implementation Ready: Starting at $30K (2-3 weeks) [Recommended]"
+echo ""
+echo "   Fractional CTO:"
+echo "     Advisory: $8K-$10K/month (1 day/week)"
+echo "     Engaged:  $12K-$15K/month (2 days/week) [Recommended]"
+echo ""
+echo "✨ What Makes This Better:"
+echo ""
+echo "  1. AUTHENTIC - You're not pretending to have done this before"
+echo "  2. CREDIBLE - OrbCare proves you can build what you're consulting on"
+echo "  3. FLEXIBLE - 'Starting at' pricing gives you room to adjust"
+echo "  4. HONEST - Clear about bringing in specialists vs claiming expertise"
+echo "  5. SMART - Still has tiered structure for upselling"
+echo ""
+echo "🎯 In Discovery Calls, You Can Say:"
+echo ""
+echo "  'I'm launching FerreiraCTO focused on edge-first architecture for"
+echo "  hardware startups. My background is building these systems—I'm currently"
+echo "  building OrbCare, a HIPAA-compliant edge AI system. For architecture"
+echo "  reviews, I start at around $20K for the foundation assessment. If you"
+echo "  need regulatory or security specialists, that's closer to $35K and I"
+echo "  bring in people I trust for those pieces.'"
+echo ""
+echo "🚀 Next Steps:"
+echo "  1. Review the updated copy carefully"
+echo "  2. Test locally: npm run dev"
+echo "  3. Make any final tweaks to pricing or language"
+echo "  4. Deploy: git add . && git commit -m 'Launch website - honest positioning' && git push"
+echo "  5. Start reaching out to your first prospects"
+echo ""
+echo "💡 Remember:"
+echo "  • Being new isn't a weakness if you have real technical credibility"
+echo "  • OrbCare is your proof you can build what you're consulting on"
+echo "  • 'Starting at' pricing protects you while learning what clients will pay"
+echo "  • Honesty about specialists builds trust, doesn't undermine you"
+echo ""
+echo "🎤 Podcast tie-in:"
+echo "  This positioning matches your Episode 1 perfectly—you're the person"
+echo "  who's building edge-first systems and can help others avoid the"
+echo "  mistakes you learned from. That's authentic and valuable."
