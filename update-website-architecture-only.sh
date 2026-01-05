@@ -1,3 +1,19 @@
+#!/bin/bash
+
+# Website Update Script - Architecture Reviews ONLY
+# Focused positioning: One service, clear value, realistic pricing
+# Run from project root: bash update-website-architecture-only.sh
+
+set -e  # Exit on error
+
+echo "🎯 Updating Ferreira CTO website - ARCHITECTURE REVIEWS ONLY..."
+
+# ============================================================================
+# UPDATE MAIN PAGE (app/page.tsx) - COMPLETE FILE
+# ============================================================================
+echo "📄 Updating main page..."
+
+cat > app/page.tsx << 'EOFPAGE'
 'use client';
 import { ArrowRight, CheckCircle, Zap, Shield, Target, Heart, Activity, FileCheck, Clock, Network } from "lucide-react";
 import Header from "@/components/Header";
@@ -638,3 +654,81 @@ export default function Home() {
     </div>
   );
 }
+EOFPAGE
+
+echo ""
+echo "✅ Website updated - ARCHITECTURE REVIEWS ONLY!"
+echo ""
+echo "🎯 KEY CHANGES:"
+echo ""
+echo "REMOVED:"
+echo "  ❌ FDA & Regulatory Readiness service"
+echo "  ❌ Fractional CTO service"
+echo "  ❌ Technical Due Diligence positioning"
+echo "  ❌ Multiple pricing tiers"
+echo "  ❌ Expert network language"
+echo ""
+echo "KEPT:"
+echo "  ✅ Architecture Reviews ONLY"
+echo "  ✅ Single clear pricing: $15,000"
+echo "  ✅ Early client discount: $12,500"
+echo "  ✅ Simple add-ons (HIPAA, pitch deck, implementation)"
+echo "  ✅ OrbCare and Lumi as proof points"
+echo "  ✅ Honest 'launching' language"
+echo ""
+echo "💰 PRICING STRUCTURE:"
+echo ""
+echo "  Standard: $15,000"
+echo "  └─ 2-3 week architecture review"
+echo "  └─ Complete deliverable package"
+echo "  └─ 30 days email support"
+echo ""
+echo "  Early Client: $12,500 (first 3 clients)"
+echo "  └─ Same service"
+echo "  └─ Requires testimonial + case study permission"
+echo ""
+echo "  Optional Add-ons:"
+echo "  ├─ HIPAA Deep Dive: +$5,000"
+echo "  ├─ Pitch Deck Slides: +$2,500"
+echo "  └─ Implementation Support: +$3,000/week"
+echo ""
+echo "🎤 YOUR ONE-SENTENCE PITCH:"
+echo ""
+echo "  'I do 2-week architecture reviews for hardware-first startups"
+echo "  to identify the $500K+ mistakes before they happen.'"
+echo ""
+echo "📞 IN DISCOVERY CALLS, YOU SAY:"
+echo ""
+echo "  'I'm launching Ferreira CTO focused on architecture reviews for"
+echo "  hardware-first startups. I'm building OrbCare, a HIPAA-compliant"
+echo "  edge AI system, so I understand the exact decisions you're facing."
+echo "  Standard review is $15K for 2-3 weeks. For my first few clients,"
+echo "  I'm offering $12,500 in exchange for a testimonial.'"
+echo ""
+echo "✨ WHY THIS IS BETTER:"
+echo ""
+echo "  1. CRYSTAL CLEAR - One service, one price, easy decision"
+echo "  2. FOCUSED - You can deliver this excellently with limited time"
+echo "  3. CREDIBLE - OrbCare proves you can build what you're reviewing"
+echo "  4. HONEST - Not pretending to offer services you can't deliver yet"
+echo "  5. UPSELL PATH - Add-ons can naturally lead to fractional work"
+echo "  6. SCALABLE - First 3 clients = 3 case studies = foundation for everything else"
+echo ""
+echo "🚀 NEXT STEPS:"
+echo ""
+echo "  1. Review the updated copy"
+echo "  2. Test locally: npm run dev"
+echo "  3. Make any final adjustments"
+echo "  4. Deploy: git add . && git commit -m 'Focus on architecture reviews only' && git push"
+echo "  5. Start your Apollo outreach with ONE clear message"
+echo ""
+echo "💡 REMEMBER:"
+echo ""
+echo "  This isn't limiting yourself - this is being strategic."
+echo "  Once you have 3-5 architecture reviews done, THEN you can add:"
+echo "  • Fractional CTO (natural upsell from good reviews)"
+echo "  • Due Diligence (VCs will approach you with case studies)"
+echo "  • Regulatory consulting (with specialists you've worked with)"
+echo ""
+echo "  But right now? ONE THING. Do it excellently. Build proof."
+echo ""
