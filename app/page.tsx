@@ -112,7 +112,7 @@ export default function Home() {
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
             <Activity className="w-4 h-4 text-blue-400" />
-            <span className="text-sm text-blue-300">2-Week Architecture Reviews for Hardware-First Startups</span>
+            <span className="text-sm text-blue-300">2-3 Week Architecture Reviews for Hardware-First Startups</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent leading-tight">
@@ -120,7 +120,7 @@ export default function Home() {
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
-            I do 2-week technical architecture reviews for hardware-first startups building robotics, IoT, and edge AI systems. 
+            I do 2-3 week technical architecture reviews for hardware-first startups building robotics, IoT, and edge AI systems.
             <span className="text-blue-300 font-semibold"> Get clarity on what will scale and what won't—before your Series A.</span>
           </p>
           
