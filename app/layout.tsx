@@ -8,11 +8,21 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Technical Due Diligence for Longevity & Health Robotics | Ferreira CTO",
-  description: "Expert technical and regulatory advisory for longevity biotech and health robotics investments. FDA pathways, HIPAA compliance, and health-tech architecture.",
-  keywords: ["technical due diligence", "longevity biotech", "health robotics", "FDA consulting", "HIPAA compliance"],
+    title: "Architecture Reviews for Hardware Startups | Before the Rewrite",
+    description: "Prevent $500K+ architecture mistakes before you scale. Expert reviews for robotics, AI, and medical device startups at Seed to Series A. HIPAA compliance & edge computing. Boston-based.",
+    keywords: [
+        "hardware architecture review",
+        "prevent architecture rewrite",
+        "robotics consulting",
+        "edge computing architecture",
+        "HIPAA compliance",
+        "health robotics",
+        "medical device architecture",
+        "hardware startup CTO",
+        "technical debt prevention",
+        "Boston hardware startups"
+    ],
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
