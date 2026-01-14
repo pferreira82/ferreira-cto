@@ -31,6 +31,41 @@ export default function RootLayout({
   // @ts-ignore
   return (
     <html lang="en">
+        <head>
+            {/* Site-wide Schema Markup */}
+            <Script
+                id="site-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "ProfessionalService",
+                        "name": "Ferreira CTO",
+                        "description": "Architecture reviews for hardware startups",
+                        "url": "https://ferreiracto.com",
+                        "areaServed": {
+                            "@type": "City",
+                            "name": "Boston",
+                            "containedIn": {
+                                "@type": "State",
+                                "name": "Massachusetts"
+                            }
+                        },
+                        "serviceType": [
+                            "Architecture Review",
+                            "Hardware Startup Consulting",
+                            "HIPAA Compliance",
+                            "Edge Computing Architecture",
+                            "Robotics Systems Design"
+                        ],
+                        "founder": {
+                            "@type": "Person",
+                            "name": "Peter Ferreira"
+                        }
+                    })
+                }}
+            />
+        </head>
       <body className={`${inter.className} bg-slate-950 text-white antialiased`}>
         {children}
         <CookieConsent />
