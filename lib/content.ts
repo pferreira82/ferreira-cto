@@ -31,7 +31,7 @@ export const nav = {
   ],
   cta: {
     label: "Work With Me",
-    href: `mailto:peter@ferreiracto.com?subject=Ferreira%20CTO%20Advisory%20Inquiry`,
+    href: "/#contact",
   },
 };
 
@@ -43,7 +43,7 @@ export const home = {
     headline: "Strategic counsel for founders\nbuilding at the edge.",
     subhead:
       "Not implementation — strategy. I help hardware, edge AI, and deeptech founders pressure-test their decisions before they become the kind of expensive mistakes that don't survive a Series A.",
-    cta:       { label: "Work With Me",         href: `mailto:peter@ferreiracto.com?subject=Ferreira%20CTO%20Advisory%20Inquiry` },
+    cta:       { label: "Work With Me",         href: "/#contact" },
     secondary: { label: "Build Anyway Program", href: "/build-anyway" },
     trust: [
       "Advisory only — I don't write your code",
@@ -156,7 +156,7 @@ export const home = {
       "Day-to-day operational tasks",
     ],
     boundary: "You advise. You do not build. This keeps you positioned as a strategic peer — not a contractor.",
-    cta: { label: "Work With Me", href: `mailto:peter@ferreiracto.com?subject=Ferreira%20CTO%20Advisory%20Inquiry` },
+    cta: { label: "Work With Me", href: "/#contact" },
     earlyOffer: {
       headline: "First 3 Clients",
       body: "Rate is $1,500/month while I build the testimonial base. After 60 days, new clients start at $2,000/month. Current clients are grandfathered.",
@@ -192,7 +192,7 @@ export const home = {
         description:
           "Not implementation — strategy. Business model pressure-testing, go-to-market framing, investor narrative, and the 7 Red Flags framework applied to your build decisions before you make the expensive ones. Two strategy sessions per month plus async availability. You build — I make sure you're building the right thing.",
         audience: "Edge AI, healthtech, and hardware founders",
-        cta: { label: "Inquire", href: `mailto:peter@ferreiracto.com?subject=Advisory%20Inquiry` },
+        cta: { label: "Inquire", href: "/#contact" },
       },
       {
         number: "03",
@@ -295,7 +295,7 @@ export const home = {
         options: ["Pre-Seed", "Seed", "Series A", "Bootstrapped", "Other"] },
       { name: "message", label: "What are you building and where do you feel most uncertain?", type: "textarea" },
     ],
-    cta: { label: "Get Started", href: `mailto:peter@ferreiracto.com?subject=Ferreira%20CTO%20Architecture%20Review` },
+    cta: { label: "Get Started", href: "/#contact" },
     fallback: "Or email directly: peter@ferreiracto.com",
   },
 };
@@ -395,7 +395,7 @@ export const buildAway = {
       "I offer one free introductory session — 75 minutes with a small group from your program. No pitch. No pressure. You see how your clients respond.",
     cta: {
       label: "Book a 20-Minute Call",
-      href: `mailto:peter@ferreiracto.com?subject=Build%20Anyway%20IOP%20Inquiry`,
+      href: "/#contact",
     },
     phone: "(401) 263-3017",
   },
@@ -411,7 +411,7 @@ export const forDirectors = {
       "Build Anyway gives IOP participants a practical entrepreneurship curriculum — and a forward-facing identity — during the most critical window.",
     cta: {
       label: "Book a Free Intro Session",
-      href: `mailto:peter@ferreiracto.com?subject=Build%20Anyway%20Free%20Intro%20Session`,
+      href: "/#contact",
     },
   },
 
@@ -468,7 +468,7 @@ export const forDirectors = {
     body: "I offer one free introductory session — 75 minutes with a small group from your program. No pitch. No pressure. You see how your clients respond, and we go from there.",
     cta: {
       label: "Book a Free Intro Session",
-      href: `mailto:peter@ferreiracto.com?subject=Build%20Anyway%20Free%20Intro%20Session`,
+      href: "/#contact",
     },
     phone: "(401) 263-3017",
     secondary: {

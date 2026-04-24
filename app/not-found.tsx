@@ -34,12 +34,12 @@ export default function NotFound() {
               Back to Home
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a
-              href="mailto:peter@ferreiracto.com"
+            <Link
+              href="/#contact"
               className="inline-flex items-center justify-center px-8 py-4 border border-slate-600 hover:border-[#c8a96e] rounded-lg font-semibold transition-all"
             >
               Get in Touch
-            </a>
+            </Link>
           </div>
         </div>
       </section>
