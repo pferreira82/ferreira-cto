@@ -42,7 +42,7 @@ export const home = {
     eyebrow: "Fractional Strategic Advisory",
     headline: "Strategic counsel for founders\nbuilding at the edge.",
     subhead:
-      "Not implementation — strategy. I help hardware, edge AI, and deeptech founders pressure-test their decisions before they become the kind of expensive mistakes that don't survive a Series A.",
+      "Not implementation — strategy. I help hardware, edge AI, and deeptech founders pressure-test their decisions before they become the kind of expensive mistakes that don't survive a Series A. Also home of the Build Anyway Program — entrepreneurship education for people in recovery.",
     cta:       { label: "Work With Me",         href: "/#contact" },
     secondary: { label: "Build Anyway Program", href: "/build-anyway" },
     trust: [
