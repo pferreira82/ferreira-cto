@@ -211,7 +211,7 @@ export default function ContactForm() {
               value={formData.message}
               onChange={handleInputChange}
               className={getFieldClassName('message', 'form-input resize-none')}
-              placeholder="Briefly describe your project, challenges, or goals. I would love to learn more about what you are building."
+              placeholder="Briefly describe what you need help with — your startup and where you feel stuck, or interest in the Build Anyway Program for your IOP facility."
               disabled={status === 'sending'}
           />
           <div className="text-xs text-slate-400 mt-1">
