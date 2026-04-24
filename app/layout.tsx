@@ -8,19 +8,19 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Architecture Reviews for Hardware Startups | Before the Rewrite",
-    description: "Prevent $500K+ architecture mistakes before you scale. Expert reviews for robotics, AI, and medical device startups at Seed to Series A. HIPAA compliance & edge computing. Boston-based.",
+    title: "Ferreira CTO | Fractional Strategic Advisory for Hardware & Edge AI Founders",
+    description: "Fractional strategic advisory for hardware, edge AI, and deeptech founders. Not implementation — strategy. Pressure-test your decisions before they become expensive mistakes. Also home of the Build Anyway Program.",
     keywords: [
-        "hardware architecture review",
-        "prevent architecture rewrite",
-        "robotics consulting",
-        "edge computing architecture",
-        "HIPAA compliance",
-        "health robotics",
-        "medical device architecture",
-        "hardware startup CTO",
-        "technical debt prevention",
-        "Boston hardware startups"
+        "fractional CTO",
+        "fractional strategic advisor",
+        "hardware startup advisor",
+        "edge AI startup consulting",
+        "deeptech founder advisory",
+        "startup strategy",
+        "hardware founder mentor",
+        "IoT startup advisor",
+        "healthtech startup advisory",
+        "Build Anyway program",
     ],
 };
 export default function RootLayout({
@@ -41,7 +41,7 @@ export default function RootLayout({
                         "@context": "https://schema.org",
                         "@type": "ProfessionalService",
                         "name": "Ferreira CTO",
-                        "description": "Architecture reviews for hardware startups",
+                        "description": "Fractional strategic advisory for hardware, edge AI, and deeptech founders",
                         "url": "https://ferreiracto.com",
                         "areaServed": {
                             "@type": "City",
