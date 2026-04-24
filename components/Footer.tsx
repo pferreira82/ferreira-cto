@@ -9,7 +9,7 @@ export default function Footer() {
               Ferreira CTO
             </h3>
             <p className="text-slate-400">
-              Fractional strategic advisory for hardware, edge AI, and deeptech founders.
+              Fractional strategic advisory for hardware, edge AI, and deeptech founders. Home of the Build Anyway Program.
             </p>
           </div>
 
