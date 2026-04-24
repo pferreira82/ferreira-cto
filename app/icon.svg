@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark background -->
+  <rect width="32" height="32" rx="6" fill="#0f172a"/>
+
+  <!-- F lettermark — geometric, no font rendering -->
+  <!-- Vertical stroke -->
+  <rect x="6" y="6" width="4" height="20" rx="1" fill="#c8a96e"/>
+  <!-- Top horizontal bar -->
+  <rect x="6" y="6" width="15" height="4" rx="1" fill="#c8a96e"/>
+  <!-- Middle horizontal bar -->
+  <rect x="6" y="14" width="11" height="4" rx="1" fill="#c8a96e"/>
+
+  <!-- Circuit-node accent — subtle hardware reference -->
+  <circle cx="24" cy="24" r="2.5" fill="#c8a96e" opacity="0.45"/>
+  <circle cx="24" cy="24" r="1.2" fill="#c8a96e"/>
+</svg>
