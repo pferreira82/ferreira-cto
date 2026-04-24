@@ -473,7 +473,7 @@ export const forDirectors = {
     phone: "(401) 263-3017",
     secondary: {
       label: "Download the Program Overview",
-      href: "#", // update when PDF is ready
+      href: "/build-anyway/program-overview",
     },
   },
 };
