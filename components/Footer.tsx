@@ -9,7 +9,7 @@ export default function Footer() {
               Ferreira CTO
             </h3>
             <p className="text-slate-400">
-              Technical quarterback for longevity & health robotics investments
+              Fractional strategic advisory for hardware, edge AI, and deeptech founders.
             </p>
           </div>
 
@@ -18,17 +18,22 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#consulting" className="text-slate-400 hover:text-blue-400 transition-colors">
-                  Services
+                <a href="/#offer" className="text-slate-400 hover:text-blue-400 transition-colors">
+                  The Offer
                 </a>
               </li>
               <li>
-                <a href="#expertise" className="text-slate-400 hover:text-blue-400 transition-colors">
-                  Expertise
+                <a href="/build-anyway" className="text-slate-400 hover:text-blue-400 transition-colors">
+                  Build Anyway
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-slate-400 hover:text-blue-400 transition-colors">
+                <a href="/podcast" className="text-slate-400 hover:text-blue-400 transition-colors">
+                  Podcast
+                </a>
+              </li>
+              <li>
+                <a href="/#contact" className="text-slate-400 hover:text-blue-400 transition-colors">
                   Contact
                 </a>
               </li>
@@ -40,21 +45,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Connect */}
           <div>
             <h4 className="font-semibold mb-4">Connect</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="mailto:contact@ferreiracto.com"
+                <a
+                  href="mailto:peter@ferreiracto.com"
                   className="text-slate-400 hover:text-blue-400 transition-colors"
                 >
-                  contact@ferreiracto.com
+                  peter@ferreiracto.com
                 </a>
               </li>
               <li>
-                <a 
-                  href="https://linkedin.com/in/pferreira82"
+                <a
+                  href="https://www.linkedin.com/in/peter-ferreira-0177061b/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 hover:text-blue-400 transition-colors"

@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, Headphones } from 'lucide-react';
+import { nav } from '@/lib/content';
+import type { Route } from 'next';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,24 +19,24 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/#how-it-works" className="text-slate-300 hover:text-white transition-colors">
-              How It Works
-            </Link>
-            <Link href="/#pricing" className="text-slate-300 hover:text-white transition-colors">
-              Pricing
-            </Link>
-            <Link href="/#expertise" className="text-slate-300 hover:text-white transition-colors">
-              Expertise
-            </Link>
-            <Link href="/podcast" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
-              <Headphones className="w-4 h-4" />
-              Podcast
-            </Link>
-            <Link 
-              href="/#contact" 
+            {nav.links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href as Route}
+                className={link.label === 'Podcast'
+                  ? 'flex items-center gap-2 text-slate-300 hover:text-white transition-colors'
+                  : 'text-slate-300 hover:text-white transition-colors'
+                }
+              >
+                {link.label === 'Podcast' && <Headphones className="w-4 h-4" />}
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href={nav.cta.href as Route}
               className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition-all"
             >
-              Get Started
+              {nav.cta.label}
             </Link>
           </div>
 
@@ -51,41 +53,26 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 py-4 border-t border-slate-800">
             <div className="flex flex-col gap-4">
-              <Link 
-                href="/#how-it-works" 
-                className="text-slate-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                How It Works
-              </Link>
-              <Link 
-                href="/#pricing" 
-                className="text-slate-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Pricing
-              </Link>
-              <Link 
-                href="/#expertise" 
-                className="text-slate-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Expertise
-              </Link>
-              <Link 
-                href="/podcast" 
-                className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Headphones className="w-4 h-4" />
-                Podcast
-              </Link>
-              <Link 
-                href="/#contact" 
+              {nav.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href as Route}
+                  className={link.label === 'Podcast'
+                    ? 'flex items-center gap-2 text-slate-300 hover:text-white transition-colors'
+                    : 'text-slate-300 hover:text-white transition-colors'
+                  }
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label === 'Podcast' && <Headphones className="w-4 h-4" />}
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href={nav.cta.href as Route}
                 className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition-all text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Get Started
+                {nav.cta.label}
               </Link>
             </div>
           </div>

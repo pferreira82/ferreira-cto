@@ -52,10 +52,10 @@ export default function PrivacyPolicy() {
               <p className="text-slate-300">
                 Questions about this Privacy Policy? Email:{" "}
                 <a 
-                  href="mailto:contact@ferreiracto.com" 
+                  href="mailto:peter@ferreiracto.com"
                   className="text-blue-400 hover:text-blue-300"
                 >
-                  contact@ferreiracto.com
+                  peter@ferreiracto.com
                 </a>
               </p>
             </section>
