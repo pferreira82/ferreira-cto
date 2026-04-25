@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { Route } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -50,12 +50,12 @@ export default function BuildAnywayPage() {
       <section className="container mx-auto px-6 pt-32 pb-16">
         <div className="max-w-4xl">
           <div className="mb-8">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/build-anyway-logo.svg"
               alt="Build Anyway"
               width={220}
               height={150}
-              priority
             />
           </div>
 
