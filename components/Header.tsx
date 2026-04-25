@@ -23,7 +23,7 @@ export default function Header() {
               .f-mark {
                 transform-box: fill-box;
                 transform-origin: center center;
-                animation: f-swivel 5s ease-in-out infinite;
+                animation: f-swivel 12s ease-in-out infinite;
               }
             `}</style>
             <svg style={{ width: 'auto', height: '119px' }} viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg">
