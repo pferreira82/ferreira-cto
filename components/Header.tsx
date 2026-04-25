@@ -13,8 +13,14 @@ export default function Header() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            Ferreira CTO
+          <Link href="/" className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/ferreira-cto-logo-header.svg"
+              alt="Ferreira CTO"
+              height={36}
+              style={{ width: 'auto', height: '36px' }}
+            />
           </Link>
 
           {/* Desktop Navigation */}

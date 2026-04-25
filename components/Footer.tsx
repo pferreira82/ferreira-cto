@@ -5,9 +5,14 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              Ferreira CTO
-            </h3>
+            <div className="mb-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/ferreira-cto-logo.svg"
+                alt="Ferreira CTO"
+                style={{ width: '160px', height: 'auto' }}
+              />
+            </div>
             <p className="text-slate-400">
               Fractional strategic advisory for hardware, edge AI, and deeptech founders. Home of the Build Anyway Program.
             </p>

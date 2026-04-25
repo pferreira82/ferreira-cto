@@ -1,0 +1,50 @@
+<svg width="680" height="445" viewBox="0 0 680 445" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Ferreira CTO</title>
+<desc>Ferreira CTO — Georgia serif F mark inside concentric rings on dark navy</desc>
+
+
+<g transform="translate(340,162)">
+
+  <circle r="76" stroke="#C8A96E" stroke-width="0.5" fill="none" opacity="0.17"/>
+  <circle r="54" stroke="#C8A96E" stroke-width="0.35" fill="none" opacity="0.10"/>
+  <circle r="20" stroke="#C8A96E" stroke-width="0.3" fill="none" opacity="0.16"/>
+
+  <text
+    x="1" y="25"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="70"
+    font-weight="700"
+    fill="#C8A96E">F</text>
+
+</g>
+
+<line x1="268" y1="256" x2="412" y2="256" stroke="#1e2a3a" stroke-width="0.5"/>
+
+<text
+  x="340" y="318"
+  text-anchor="middle"
+  font-family="Georgia, 'Times New Roman', serif"
+  font-size="52"
+  font-weight="700"
+  letter-spacing="10"
+  fill="#E8E0D0">FERREIRA</text>
+
+<text
+  x="340" y="364"
+  text-anchor="middle"
+  font-family="'Courier New', Courier, monospace"
+  font-size="21"
+  font-weight="700"
+  letter-spacing="16"
+  fill="#C8A96E">CTO</text>
+
+<text
+  x="340" y="403"
+  text-anchor="middle"
+  font-family="'Courier New', Courier, monospace"
+  font-size="10"
+  letter-spacing="4"
+  fill="#2d3f55">FRACTIONAL STRATEGIC ADVISORY</text>
+
+</svg>
