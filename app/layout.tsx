@@ -8,7 +8,11 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Ferreira CTO | Fractional Strategic Advisory for Hardware & Edge AI Founders",
+    metadataBase: new URL('https://ferreiracto.com'),
+    title: {
+        default: "Ferreira CTO | Fractional Strategic Advisory for Hardware & Edge AI Founders",
+        template: "%s | Ferreira CTO",
+    },
     description: "Fractional strategic advisory for hardware, edge AI, and deeptech founders. Not implementation — strategy. Pressure-test your decisions before they become expensive mistakes. Also home of the Build Anyway Program.",
     keywords: [
         "fractional CTO",
@@ -22,6 +26,28 @@ export const metadata: Metadata = {
         "healthtech startup advisory",
         "Build Anyway program",
     ],
+    openGraph: {
+        type: 'website',
+        locale: 'en_US',
+        url: 'https://ferreiracto.com',
+        siteName: 'Ferreira CTO',
+        title: 'Ferreira CTO | Fractional Strategic Advisory for Hardware & Edge AI Founders',
+        description: 'Fractional strategic advisory for hardware, edge AI, and deeptech founders. Pressure-test your decisions before they become expensive mistakes.',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Ferreira CTO' }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Ferreira CTO | Fractional Strategic Advisory for Hardware & Edge AI Founders',
+        description: 'Fractional strategic advisory for hardware, edge AI, and deeptech founders. Pressure-test your decisions before they become expensive mistakes.',
+        images: ['/og-image.png'],
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+    alternates: {
+        canonical: 'https://ferreiracto.com',
+    },
 };
 export default function RootLayout({
   children,

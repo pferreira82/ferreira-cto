@@ -8,8 +8,30 @@ import Section from '@/components/Section';
 import { buildAway } from '@/lib/content';
 
 export const metadata: Metadata = {
-  title: 'Build Anyway | Ferreira CTO',
-  description: buildAway.hero.subhead,
+  title: 'Build Anyway',
+  description: 'A three-level certification program for people in recovery who want to build a business. Foundation, Builder, and Facilitator levels — each complete in itself.',
+  keywords: [
+    'Build Anyway program',
+    'entrepreneurship for recovery',
+    'recovery business program',
+    'IOP entrepreneurship',
+    'Build Anyway certification',
+    'Peter Ferreira',
+  ],
+  openGraph: {
+    title: 'Build Anyway | Ferreira CTO',
+    description: 'A three-level certification program for people in recovery who want to build a business. Foundation, Builder, and Facilitator levels.',
+    url: 'https://ferreiracto.com/build-anyway',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Build Anyway | Ferreira CTO',
+    description: 'A three-level certification program for people in recovery who want to build a business.',
+  },
+  alternates: {
+    canonical: 'https://ferreiracto.com/build-anyway',
+  },
 };
 
 const LEVEL_COLORS: Record<string, string> = {
