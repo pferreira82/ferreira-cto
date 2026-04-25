@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: 'The 7 Red Flags Assessment | Ferreira CTO',
     description: 'Would your strategy survive a Series A diligence call? Find the gaps before an investor does. Free, 5 minutes.',
   },
+  alternates: {
+    canonical: 'https://ferreiracto.com/red-flags',
+  },
 };
 
 export default function RedFlagsLayout({ children }: { children: React.ReactNode }) {

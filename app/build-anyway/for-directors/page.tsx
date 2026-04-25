@@ -10,6 +10,20 @@ import { forDirectors } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'For IOP Directors | Build Anyway | Ferreira CTO',
   description: forDirectors.hero.subhead,
+  openGraph: {
+    title: 'For IOP Directors | Build Anyway | Ferreira CTO',
+    description: 'Bring the Build Anyway entrepreneurship program to your IOP or outpatient facility. Curriculum, facilitation, and certification for people in recovery.',
+    url: 'https://ferreiracto.com/build-anyway/for-directors',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'For IOP Directors | Build Anyway | Ferreira CTO',
+    description: 'Bring the Build Anyway entrepreneurship program to your IOP or outpatient facility.',
+  },
+  alternates: {
+    canonical: 'https://ferreiracto.com/build-anyway/for-directors',
+  },
 };
 
 export default function ForDirectorsPage() {

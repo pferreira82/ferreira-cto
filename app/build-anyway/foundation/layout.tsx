@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: 'Foundation — Level 1 | Build Anyway | Ferreira CTO',
     description: 'An 8-session entrepreneurship program for people in recovery. Runs inside IOP programs.',
   },
+  alternates: {
+    canonical: 'https://ferreiracto.com/build-anyway/foundation',
+  },
 };
 
 export default function FoundationLayout({ children }: { children: React.ReactNode }) {
