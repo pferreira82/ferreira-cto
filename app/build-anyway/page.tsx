@@ -49,13 +49,13 @@ export default function BuildAnywayPage() {
       {/* HERO */}
       <section className="container mx-auto px-6 pt-32 pb-16">
         <div className="max-w-4xl">
-          <div className="flex justify-center mb-8">
+          <div className="mb-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/build-anyway-logo.svg"
               alt="Build Anyway"
-              width={300}
-              height={205}
+              width={450}
+              height={308}
             />
           </div>
 

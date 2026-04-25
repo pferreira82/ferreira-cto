@@ -10,7 +10,7 @@ export default function Footer() {
               <img
                 src="/images/ferreira-cto-logo.svg"
                 alt="Ferreira CTO"
-                style={{ width: '160px', height: 'auto' }}
+                style={{ width: '240px', height: 'auto' }}
               />
             </div>
             <p className="text-slate-400">

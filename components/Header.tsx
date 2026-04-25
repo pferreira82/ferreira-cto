@@ -19,7 +19,7 @@ export default function Header() {
               src="/images/ferreira-cto-logo-header.svg"
               alt="Ferreira CTO"
               height={36}
-              style={{ width: 'auto', height: '36px' }}
+              style={{ width: 'auto', height: '54px' }}
             />
           </Link>
 
