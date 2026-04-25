@@ -49,13 +49,63 @@ export default function BuildAnywayPage() {
       {/* HERO */}
       <section className="container mx-auto px-6 pt-32 pb-16">
         <div className="max-w-4xl">
-          <div className="mb-8">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/build-anyway-logo-header.svg"
-              alt="Build Anyway"
-              style={{ width: '840px', height: 'auto', maxWidth: '100%' }}
-            />
+          <div className="mb-8" style={{ width: '840px', maxWidth: '100%' }}>
+            <style>{`
+              @keyframes ba-spin-slow   { to { transform: rotate(360deg); } }
+              @keyframes ba-spin-rev    { to { transform: rotate(-360deg); } }
+              @keyframes ba-ring-pulse  { 0%,100% { opacity: 0.18; } 50% { opacity: 0.38; } }
+              @keyframes ba-glow-pulse  { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+              @keyframes ba-text-in     { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
+              .ba-petals-outer { animation: ba-spin-slow 18s linear infinite; transform-origin: 50px 50px; }
+              .ba-petals-inner { animation: ba-spin-rev  12s linear infinite; transform-origin: 50px 50px; }
+              .ba-ring-1 { animation: ba-ring-pulse 4s ease-in-out infinite; }
+              .ba-ring-2 { animation: ba-ring-pulse 4s ease-in-out infinite 0.6s; }
+              .ba-ring-3 { animation: ba-ring-pulse 4s ease-in-out infinite 1.2s; }
+              .ba-center  { animation: ba-glow-pulse 3s ease-in-out infinite; }
+              .ba-wordmark { animation: ba-text-in 0.8s ease-out both 0.3s; }
+              .ba-tagline  { animation: ba-text-in 0.8s ease-out both 0.6s; }
+            `}</style>
+            <svg width="100%" viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Build Anyway">
+
+              <g transform="translate(50,50)">
+                <circle className="ba-ring-1" r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.18"/>
+                <circle className="ba-ring-2" r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.14"/>
+                <circle className="ba-ring-3" r="9"  stroke="#C8A96E" strokeWidth="0.3"  fill="none" opacity="0.16"/>
+
+                <g className="ba-petals-outer" stroke="#C8A96E" strokeWidth="0.6" fill="#C8A96E" fillOpacity="0.08">
+                  <path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/>
+                  <g transform="rotate(60)"> <path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+                  <g transform="rotate(120)"><path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+                  <g transform="rotate(180)"><path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+                  <g transform="rotate(240)"><path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+                  <g transform="rotate(300)"><path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+                </g>
+
+                <g className="ba-petals-inner" transform="rotate(30)" stroke="#C8A96E" strokeWidth="0.5" fill="#C8A96E" fillOpacity="0.22">
+                  <path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/>
+                  <g transform="rotate(60)"> <path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
+                  <g transform="rotate(120)"><path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
+                  <g transform="rotate(180)"><path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
+                  <g transform="rotate(240)"><path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
+                  <g transform="rotate(300)"><path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
+                </g>
+
+                <circle className="ba-center" r="3" fill="#C8A96E"/>
+                <circle r="1.2" fill="transparent"/>
+              </g>
+
+              <line x1="94" y1="22" x2="94" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
+
+              <g className="ba-wordmark">
+                <text x="110" y="44" textAnchor="start" fontFamily="Georgia, 'Times New Roman', serif" fontSize="26" fontWeight="700" letterSpacing="5" fill="#E8E0D0">BUILD</text>
+                <text x="110" y="72" textAnchor="start" fontFamily="Georgia, 'Times New Roman', serif" fontSize="26" fontWeight="700" letterSpacing="3" fill="#C8A96E">ANYWAY</text>
+              </g>
+
+              <line x1="314" y1="22" x2="314" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
+
+              <text className="ba-tagline" x="330" y="56" textAnchor="start" fontFamily="'Courier New', Courier, monospace" fontSize="13" letterSpacing="3" fill="#9aaabf">ENTREPRENEURSHIP FOR RECOVERY</text>
+
+            </svg>
           </div>
 
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#c8a96e]/30 bg-[#c8a96e]/10 mb-6">
