@@ -1,0 +1,73 @@
+<svg width="680" height="465" viewBox="0 0 680 465" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Build Anyway</title>
+<desc>Build Anyway logo with geometric lotus mark in gold on dark navy ground</desc>
+
+<rect x="0" y="0" width="680" height="465" rx="4" fill="#0f172a"/>
+
+<g transform="translate(340,170)">
+
+  <circle r="90" stroke="#C8A96E" stroke-width="0.4" fill="none" opacity="0.18"/>
+  <circle r="50" stroke="#C8A96E" stroke-width="0.4" fill="none" opacity="0.14"/>
+  <circle r="18" stroke="#C8A96E" stroke-width="0.4" fill="none" opacity="0.2"/>
+
+  <g stroke="#C8A96E" stroke-width="0.7" fill="#C8A96E" fill-opacity="0.08">
+    <path d="M 0,-82 L 12,-8 L 0,0 L -12,-8 Z"/>
+    <g transform="rotate(60)"><path d="M 0,-82 L 12,-8 L 0,0 L -12,-8 Z"/></g>
+    <g transform="rotate(120)"><path d="M 0,-82 L 12,-8 L 0,0 L -12,-8 Z"/></g>
+    <g transform="rotate(180)"><path d="M 0,-82 L 12,-8 L 0,0 L -12,-8 Z"/></g>
+    <g transform="rotate(240)"><path d="M 0,-82 L 12,-8 L 0,0 L -12,-8 Z"/></g>
+    <g transform="rotate(300)"><path d="M 0,-82 L 12,-8 L 0,0 L -12,-8 Z"/></g>
+  </g>
+
+  <g transform="rotate(30)" stroke="#C8A96E" stroke-width="0.6" fill="#C8A96E" fill-opacity="0.22">
+    <path d="M 0,-60 L 8,-6 L 0,0 L -8,-6 Z"/>
+    <g transform="rotate(60)"><path d="M 0,-60 L 8,-6 L 0,0 L -8,-6 Z"/></g>
+    <g transform="rotate(120)"><path d="M 0,-60 L 8,-6 L 0,0 L -8,-6 Z"/></g>
+    <g transform="rotate(180)"><path d="M 0,-60 L 8,-6 L 0,0 L -8,-6 Z"/></g>
+    <g transform="rotate(240)"><path d="M 0,-60 L 8,-6 L 0,0 L -8,-6 Z"/></g>
+    <g transform="rotate(300)"><path d="M 0,-60 L 8,-6 L 0,0 L -8,-6 Z"/></g>
+  </g>
+
+  <g stroke="#C8A96E" stroke-width="0.5" fill="#C8A96E" fill-opacity="0.5">
+    <path d="M 0,-36 L 5,-4 L 0,0 L -5,-4 Z"/>
+    <g transform="rotate(60)"><path d="M 0,-36 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+    <g transform="rotate(120)"><path d="M 0,-36 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+    <g transform="rotate(180)"><path d="M 0,-36 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+    <g transform="rotate(240)"><path d="M 0,-36 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+    <g transform="rotate(300)"><path d="M 0,-36 L 5,-4 L 0,0 L -5,-4 Z"/></g>
+  </g>
+
+  <circle r="6" fill="#C8A96E"/>
+  <circle r="2.5" fill="#0f172a"/>
+
+</g>
+
+<line x1="260" y1="278" x2="420" y2="278" stroke="#1e2a3a" stroke-width="0.5"/>
+
+<text
+  x="340" y="340"
+  text-anchor="middle"
+  font-family="Georgia, 'Times New Roman', serif"
+  font-size="58"
+  font-weight="700"
+  letter-spacing="10"
+  fill="#E8E0D0">BUILD</text>
+
+<text
+  x="340" y="404"
+  text-anchor="middle"
+  font-family="Georgia, 'Times New Roman', serif"
+  font-size="58"
+  font-weight="700"
+  letter-spacing="4"
+  fill="#C8A96E">ANYWAY</text>
+
+<text
+  x="340" y="444"
+  text-anchor="middle"
+  font-family="'Courier New', Courier, monospace"
+  font-size="11"
+  letter-spacing="5"
+  fill="#334155">FERREIRACTO.COM</text>
+
+</svg>

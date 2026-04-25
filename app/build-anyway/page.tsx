@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { Route } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -48,6 +49,16 @@ export default function BuildAnywayPage() {
       {/* HERO */}
       <section className="container mx-auto px-6 pt-32 pb-16">
         <div className="max-w-4xl">
+          <div className="mb-8">
+            <Image
+              src="/images/build-anyway-logo.svg"
+              alt="Build Anyway"
+              width={220}
+              height={150}
+              priority
+            />
+          </div>
+
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#c8a96e]/30 bg-[#c8a96e]/10 mb-6">
             <span className="text-sm" style={{ color: '#c8a96e' }}>{buildAway.hero.eyebrow}</span>
           </div>
