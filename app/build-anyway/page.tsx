@@ -54,7 +54,7 @@ export default function BuildAnywayPage() {
             <img
               src="/images/build-anyway-logo-header.svg"
               alt="Build Anyway"
-              style={{ width: '420px', height: 'auto' }}
+              style={{ width: '840px', height: 'auto', maxWidth: '100%' }}
             />
           </div>
 
