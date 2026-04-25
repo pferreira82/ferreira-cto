@@ -52,10 +52,9 @@ export default function BuildAnywayPage() {
           <div className="mb-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/build-anyway-logo.svg"
+              src="/images/build-anyway-logo-header.svg"
               alt="Build Anyway"
-              width={450}
-              height={308}
+              style={{ width: '420px', height: 'auto' }}
             />
           </div>
 
