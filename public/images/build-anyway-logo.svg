@@ -2,7 +2,6 @@
 <title>Build Anyway</title>
 <desc>Build Anyway logo with geometric lotus mark in gold on dark navy ground</desc>
 
-<rect x="0" y="0" width="680" height="465" rx="4" fill="#0f172a"/>
 
 <g transform="translate(340,170)">
 
@@ -38,7 +37,7 @@
   </g>
 
   <circle r="6" fill="#C8A96E"/>
-  <circle r="2.5" fill="#0f172a"/>
+  <circle r="2.5" fill="transparent"/>
 
 </g>
 
