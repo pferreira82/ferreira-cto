@@ -92,6 +92,11 @@ export default function BuildAnywayPage() {
                     {level.number}
                   </div>
                   <span className="font-bold">{level.name}</span>
+                  {level.number > 1 && (
+                    <span className="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-800 text-slate-500 border border-slate-700">
+                      Coming Soon
+                    </span>
+                  )}
                 </div>
 
                 <div className="space-y-1 mb-4 text-sm text-slate-500">
@@ -110,13 +115,19 @@ export default function BuildAnywayPage() {
                   <span>{level.cert}</span>
                 </div>
 
-                <Link
-                  href={level.href as Route}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white"
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                {level.number === 1 ? (
+                  <Link
+                    href={level.href as Route}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white"
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                ) : (
+                  <div className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium border border-slate-800 text-slate-600 cursor-not-allowed select-none">
+                    Coming Soon
+                  </div>
+                )}
               </div>
             );
           })}
