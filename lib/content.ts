@@ -338,7 +338,7 @@ export const buildAway = {
       description:
         "A structured 4-week curriculum delivered inside your IOP program. Participants reframe their past as raw material, identify a business idea rooted in lived experience, and leave with a one-page concept and 30-day action plan.",
       cert: "Build Anyway Foundation Certificate",
-      href: "/build-anyway/levels#foundation",
+      href: "/build-anyway/foundation",
     },
     {
       number: 2,
