@@ -26,7 +26,7 @@ export default function Header() {
                 animation: f-swivel 12s ease-in-out infinite;
               }
             `}</style>
-            <svg style={{ width: 'auto', height: '119px' }} viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg">
+            <svg style={{ width: 'auto', height: '101px' }} viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg">
               <g transform="translate(50,50)">
                 <circle r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.17"/>
                 <circle r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.10"/>
