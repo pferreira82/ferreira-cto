@@ -258,6 +258,37 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* ASSESSMENTS */}
+      <Section title="Know Where You Stand" subtitle="Two free assessments — one for your strategy, one for the founder behind it. Take them before we talk.">
+        <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-6">
+          <a
+            href="/red-flags#strategy"
+            className="group block p-6 rounded-2xl border border-slate-800 bg-slate-900/50 hover:border-[#c8a96e]/40 hover:bg-slate-800/50 transition-all no-underline"
+          >
+            <div className="text-3xl mb-4">🚩</div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c8a96e' }}>Strategy · 7 questions · ~5 min</div>
+            <h3 className="text-lg font-bold text-white mb-2">The 7 Red Flags Check</h3>
+            <p className="text-sm text-slate-400 leading-relaxed mb-4">
+              Would your strategy survive a Series A diligence call? Find the gaps before an investor does.
+            </p>
+            <span className="text-sm font-semibold group-hover:underline" style={{ color: '#c8a96e' }}>Start the assessment →</span>
+          </a>
+
+          <a
+            href="/red-flags#mindset"
+            className="group block p-6 rounded-2xl border border-slate-800 bg-slate-900/50 hover:border-indigo-500/40 hover:bg-slate-800/50 transition-all no-underline"
+          >
+            <div className="text-3xl mb-4">🌱</div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#818cf8' }}>Mindset · 5 questions · ~3 min</div>
+            <h3 className="text-lg font-bold text-white mb-2">The Build Anyway Mindset Check</h3>
+            <p className="text-sm text-slate-400 leading-relaxed mb-4">
+              For the founder underneath the startup — not the pitch version. Honest questions, honest picture.
+            </p>
+            <span className="text-sm font-semibold group-hover:underline" style={{ color: '#818cf8' }}>Begin →</span>
+          </a>
+        </div>
+      </Section>
+
       {/* CONTACT */}
       <Section id="contact" title="Let's Talk" subtitle="Tell me about what you're building and where you feel most uncertain.">
         <div className="max-w-2xl mx-auto">

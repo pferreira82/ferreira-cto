@@ -27,6 +27,7 @@ export const nav = {
   links: [
     { label: "The Offer",    href: "/#offer" },
     { label: "Build Anyway", href: "/build-anyway" },
+    { label: "Red Flags",    href: "/red-flags" },
     { label: "Podcast",      href: "/podcast" },
   ],
   cta: {
