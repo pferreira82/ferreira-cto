@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-6 py-1">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center" aria-label="Ferreira CTO">
