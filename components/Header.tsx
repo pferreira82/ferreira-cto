@@ -26,29 +26,30 @@ export default function Header() {
                 animation: f-swivel 12s ease-in-out infinite;
               }
             `}</style>
-            <svg style={{ width: 'auto', height: '86px' }} viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision" textRendering="geometricPrecision">
+
+            {/* Desktop — full lockup */}
+            <svg className="hidden md:block" style={{ width: 'auto', height: '86px' }} viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision" textRendering="geometricPrecision">
               <g transform="translate(50,50)">
                 <circle r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.17"/>
                 <circle r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.10"/>
                 <circle r="9"  stroke="#C8A96E" strokeWidth="0.3"  fill="none" opacity="0.16"/>
-                <text
-                  className="f-mark"
-                  x="0" y="11"
-                  textAnchor="middle"
-                  fontFamily="Georgia, 'Times New Roman', serif"
-                  fontSize="31"
-                  fontWeight="700"
-                  fill="#C8A96E">F</text>
+                <text className="f-mark" x="0" y="11" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="31" fontWeight="700" fill="#C8A96E">F</text>
               </g>
-
               <line x1="94" y1="22" x2="94" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
-
               <text x="110" y="44" textAnchor="start" fontFamily="Georgia, 'Times New Roman', serif" fontSize="26" fontWeight="700" letterSpacing="5" fill="#E8E0D0">FERREIRA</text>
               <text x="110" y="72" textAnchor="start" fontFamily="'Courier New', Courier, monospace" fontSize="13" fontWeight="700" letterSpacing="10" fill="#C8A96E">CTO</text>
-
               <line x1="314" y1="22" x2="314" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
-
               <text x="330" y="56" textAnchor="start" fontFamily="'Courier New', Courier, monospace" fontSize="13" letterSpacing="3" fill="#9aaabf">FRACTIONAL STRATEGIC ADVISORY</text>
+            </svg>
+
+            {/* Mobile — F mark only */}
+            <svg className="md:hidden" style={{ width: 'auto', height: '64px' }} viewBox="16 16 68 68" role="img" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision" textRendering="geometricPrecision">
+              <g transform="translate(50,50)">
+                <circle r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.17"/>
+                <circle r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.10"/>
+                <circle r="9"  stroke="#C8A96E" strokeWidth="0.3"  fill="none" opacity="0.16"/>
+                <text className="f-mark" x="0" y="11" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="31" fontWeight="700" fill="#C8A96E">F</text>
+              </g>
             </svg>
           </Link>
 
