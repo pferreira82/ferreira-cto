@@ -128,9 +128,6 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="text-xs text-slate-500 border-t border-slate-800 pt-4 leading-relaxed">
-                {home.offer.boundary}
-              </p>
             </div>
           </div>
 

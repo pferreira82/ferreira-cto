@@ -175,17 +175,17 @@ const QUESTIONS: MindsetQ[] = [
 // ─── SCORING ─────────────────────────────────────────────────────
 
 function strategyTier(score: number) {
-  if (score >= 11) return { label: 'Strategically Sound',        desc: 'Ready to scale your go-to-market.',                              color: '#16a34a' };
-  if (score >= 8)  return { label: 'Exposed in Places',          desc: '2–3 gaps that will surface in diligence.',                       color: '#ca8a04' };
-  if (score >= 4)  return { label: 'High Risk',                  desc: 'Your raise will be harder than it needs to be.',                  color: '#dc2626' };
-  return             { label: 'Critical',                        desc: 'Series A is not fundable in your current state.',                  color: '#dc2626' };
+  if (score >= 11) return { label: 'Strategically Sound',  desc: 'Ready to scale your go-to-market.',                       color: '#16a34a' };
+  if (score >= 8)  return { label: 'Exposed in Places',    desc: '2–3 gaps that will surface in diligence.',                color: '#ca8a04' };
+  if (score >= 4)  return { label: 'High Risk',            desc: 'Your raise will be harder than it needs to be.',           color: '#dc2626' };
+  return             { label: 'Critical',                  desc: 'Series A is not fundable in your current state.',          color: '#dc2626' };
 }
 
 function mindsetTier(score: number) {
-  if (score >= 9) return { label: 'Grounded',                    desc: "You're building from a stable place. This is rare and worth protecting.",            color: '#16a34a' };
-  if (score >= 6) return { label: 'Aware',                       desc: 'You can see the patterns. Seeing them is the first step to choosing differently.',    color: '#6366f1' };
-  if (score >= 3) return { label: 'Tender',                      desc: 'Some old patterns are running the show. This is not a verdict — it\'s an invitation.', color: '#ca8a04' };
-  return            { label: 'The foundation needs attention',   desc: "Not the startup's, yours. Everything else is built on this.",                          color: '#94a3b8' };
+  if (score >= 9) return { label: 'Grounded',                   desc: "You're building from a stable place. This is rare and worth protecting.",           color: '#16a34a' };
+  if (score >= 6) return { label: 'Aware',                      desc: 'You can see the patterns. Seeing them is the first step to choosing differently.',   color: '#6366f1' };
+  if (score >= 3) return { label: 'Tender',                     desc: "Some old patterns are running the show. This is not a verdict — it's an invitation.", color: '#ca8a04' };
+  return            { label: 'The foundation needs attention',  desc: "Not the startup's, yours. Everything else is built on this.",                        color: '#94a3b8' };
 }
 
 // ─── COUNT-UP HOOK ────────────────────────────────────────────────
@@ -207,7 +207,7 @@ function useCountUp(target: number, active: boolean) {
   return current;
 }
 
-// ─── ANSWER CARD STYLES ───────────────────────────────────────────
+// ─── ANSWER STYLES ────────────────────────────────────────────────
 
 const TYPE_STYLE: Record<AnswerType, { border: string; bg: string }> = {
   green:  { border: '#16a34a', bg: 'rgba(22,163,74,0.10)'  },
@@ -227,17 +227,16 @@ const MINDSET_STYLE: Record<MindsetLabel, { border: string; bg: string; tag: str
 
 function ProgressBar({ current, total, color }: { current: number; total: number; color: string }) {
   return (
-    <div style={{ marginBottom: 32 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-        <span style={{ color, fontSize: 13, fontWeight: 600 }}>
-          {current + 1} of {total}
-        </span>
-        <span style={{ color: '#475569', fontSize: 13 }}>
-          {Math.round((current / total) * 100)}% complete
-        </span>
+    <div className="mb-8">
+      <div className="flex justify-between mb-2">
+        <span className="text-xs font-semibold uppercase tracking-widest" style={{ color }}>{current + 1} of {total}</span>
+        <span className="text-slate-500 text-sm">{Math.round((current / total) * 100)}% complete</span>
       </div>
-      <div style={{ height: 3, background: '#1e293b', borderRadius: 2 }}>
-        <div style={{ height: '100%', width: `${(current / total) * 100}%`, background: color, borderRadius: 2, transition: 'width 0.4s ease' }} />
+      <div className="h-0.5 bg-slate-800 rounded-full">
+        <div
+          className="h-full rounded-full transition-all duration-500"
+          style={{ width: `${(current / total) * 100}%`, background: color }}
+        />
       </div>
     </div>
   );
@@ -281,36 +280,39 @@ function StrategyAssessment() {
   const reset = () => { setPhase('intro'); setCurrent(0); setSelected(null); setLog([]); };
 
   return (
-    <section id="strategy" style={{ padding: '72px 0', scrollMarginTop: 80 }}>
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px' }}>
+    <section id="strategy" className="py-20" style={{ scrollMarginTop: 80 }}>
+      <div className="container mx-auto px-6 max-w-2xl">
 
         {/* Header */}
-        <div style={{ marginBottom: 48 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(200,169,110,0.12)', border: '1px solid rgba(200,169,110,0.3)', borderRadius: 20, padding: '4px 14px', marginBottom: 14 }}>
-            <span style={{ fontSize: 14 }}>🚩</span>
-            <span style={{ color: '#c8a96e', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase' }}>Assessment 1</span>
+        <div className="mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1 mb-4 text-xs font-bold uppercase tracking-widest border" style={{ background: 'rgba(200,169,110,0.1)', borderColor: 'rgba(200,169,110,0.25)', color: '#c8a96e' }}>
+            <span>🚩</span> Assessment 1
           </div>
-          <h2 style={{ fontSize: 'clamp(26px,5vw,38px)', fontWeight: 800, margin: '0 0 12px', letterSpacing: -0.5, lineHeight: 1.2 }}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight leading-tight">
             The 7 Red Flags Killing Your Deep Tech Startup
           </h2>
-          <p style={{ color: '#94a3b8', fontSize: 17, margin: 0 }}>Take 5 minutes to find out where your strategy stands.</p>
+          <p className="text-slate-400 text-lg">Take 5 minutes to find out where your strategy stands.</p>
         </div>
 
         {/* INTRO */}
         {phase === 'intro' && (
-          <div style={{ background: 'rgba(200,169,110,0.05)', border: '1px solid rgba(200,169,110,0.18)', borderRadius: 14, padding: '40px 32px', textAlign: 'center' }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>🚩</div>
-            <p style={{ color: '#94a3b8', fontSize: 15, lineHeight: 1.8, maxWidth: 480, margin: '0 auto 28px' }}>
+          <div className="card p-10 text-center">
+            <div className="text-5xl mb-5">🚩</div>
+            <p className="text-slate-400 text-base leading-relaxed max-w-md mx-auto mb-7">
               7 flags. One honest question each. Find out where your strategy is solid — and where it's one diligence call away from a problem.
             </p>
-            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+            <div className="flex gap-2 justify-center flex-wrap mb-7">
               {[['✅', 'Strong'], ['⚠️', 'Watch this'], ['❌', 'Real gap'], ['🚩', 'Red flag']].map(([icon, label]) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.04)', border: '1px solid #1e293b', borderRadius: 8, padding: '6px 12px', fontSize: 13, color: '#64748b' }}>
+                <div key={label} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs text-slate-500 border border-slate-800 bg-white/[0.02]">
                   <span>{icon}</span><span>{label}</span>
                 </div>
               ))}
             </div>
-            <button onClick={() => setPhase('quiz')} style={{ background: '#c8a96e', color: '#0f1117', border: 'none', borderRadius: 8, padding: '14px 32px', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+            <button
+              onClick={() => setPhase('quiz')}
+              className="inline-flex items-center justify-center rounded-xl px-8 py-3.5 text-sm font-bold cursor-pointer border-0"
+              style={{ background: '#c8a96e', color: '#0f172a' }}
+            >
               Start the Assessment →
             </button>
           </div>
@@ -322,18 +324,18 @@ function StrategyAssessment() {
             <ProgressBar current={current} total={FLAGS.length} color="#c8a96e" />
 
             {/* Flag card */}
-            <div style={{ background: '#13192a', border: '1px solid #1e2a3a', borderRadius: 14, padding: '28px 24px', marginBottom: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-                <span style={{ fontSize: 18 }}>🚩</span>
-                <span style={{ color: '#c8a96e', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase' }}>Flag {flag.number} of 7</span>
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-7 mb-4">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-lg">🚩</span>
+                <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#c8a96e' }}>Flag {flag.number} of 7</span>
               </div>
-              <h3 style={{ fontSize: 21, fontWeight: 700, margin: '0 0 10px', lineHeight: 1.3 }}>{flag.title}</h3>
-              <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.75, margin: '0 0 14px' }}>{flag.description}</p>
-              <p style={{ color: '#4a5568', fontSize: 14, fontStyle: 'italic', margin: 0 }}>{flag.quote}</p>
+              <h3 className="text-xl font-bold mb-2.5 leading-snug">{flag.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-3">{flag.description}</p>
+              <p className="text-slate-600 text-sm italic">{flag.quote}</p>
             </div>
 
             {/* Answers */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
+            <div className="flex flex-col gap-2 mb-5">
               {flag.answers.map((ans, idx) => {
                 const s = TYPE_STYLE[ans.type];
                 const isSelected = selected === idx;
@@ -342,28 +344,29 @@ function StrategyAssessment() {
                   <div
                     key={idx}
                     onClick={() => select(idx)}
+                    className="rounded-xl p-3.5 flex gap-3 items-start transition-all duration-200"
                     style={{
                       background: isSelected ? s.bg : 'rgba(255,255,255,0.02)',
-                      border: `1px solid ${isSelected ? s.border : '#1e293b'}`,
-                      borderRadius: 10,
-                      padding: '13px 16px',
+                      border: `1px solid ${isSelected ? s.border : 'rgb(30,41,59)'}`,
                       cursor: selected !== null && !isSelected ? 'default' : 'pointer',
-                      display: 'flex', gap: 12, alignItems: 'flex-start',
                       opacity: selected !== null && !isSelected ? 0.38 : 1,
-                      transition: 'all 0.2s',
                       animation: isFlash ? 'redPulse 0.9s ease-out' : 'none',
                     }}
                   >
-                    <span style={{ fontSize: 15, flexShrink: 0, marginTop: 2 }}>{ans.icon}</span>
-                    <span style={{ color: isSelected ? '#e2e8f0' : '#8492a6', fontSize: 14, lineHeight: 1.6 }}>{ans.text}</span>
+                    <span className="text-base flex-shrink-0 mt-0.5">{ans.icon}</span>
+                    <span className="text-sm leading-relaxed" style={{ color: isSelected ? '#e2e8f0' : '#8492a6' }}>{ans.text}</span>
                   </div>
                 );
               })}
             </div>
 
             {selected !== null && (
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <button onClick={next} style={{ background: '#c8a96e', color: '#0f1117', border: 'none', borderRadius: 8, padding: '12px 26px', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>
+              <div className="flex justify-end">
+                <button
+                  onClick={next}
+                  className="rounded-xl px-6 py-3 text-sm font-bold cursor-pointer border-0"
+                  style={{ background: '#c8a96e', color: '#0f172a' }}
+                >
                   {current + 1 < FLAGS.length ? 'Next Flag →' : 'See My Results →'}
                 </button>
               </div>
@@ -374,33 +377,40 @@ function StrategyAssessment() {
         {/* RESULTS */}
         {phase === 'results' && (
           <>
-            <div style={{ background: '#13192a', border: `2px solid ${tier.color}55`, borderRadius: 16, padding: '40px 28px', textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ color: '#475569', fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 6 }}>Strategy Score</div>
-              <div style={{ fontSize: 80, fontWeight: 900, color: tier.color, lineHeight: 1 }}>{displayScore}</div>
-              <div style={{ color: '#334155', fontSize: 14, marginBottom: 20 }}>out of 14</div>
-              <div style={{ display: 'inline-block', background: `${tier.color}18`, border: `1px solid ${tier.color}40`, borderRadius: 20, padding: '6px 20px', marginBottom: 10 }}>
-                <span style={{ color: tier.color, fontWeight: 700, fontSize: 15 }}>{tier.label}</span>
+            <div className="card p-10 text-center mb-5" style={{ border: `1px solid ${tier.color}44` }}>
+              <div className="text-xs uppercase tracking-widest text-slate-500 mb-2">Strategy Score</div>
+              <div className="font-black leading-none mb-1" style={{ fontSize: 80, color: tier.color }}>{displayScore}</div>
+              <div className="text-slate-600 text-sm mb-5">out of 14</div>
+              <div className="inline-block rounded-full px-5 py-1.5 mb-2" style={{ background: `${tier.color}18`, border: `1px solid ${tier.color}40` }}>
+                <span className="font-bold text-base" style={{ color: tier.color }}>{tier.label}</span>
               </div>
-              <p style={{ color: '#94a3b8', fontSize: 15, margin: '10px 0 0' }}>{tier.desc}</p>
+              <p className="text-slate-400 text-sm mt-2">{tier.desc}</p>
             </div>
 
             {flagged.length > 0 && (
-              <div style={{ background: 'rgba(220,38,38,0.06)', border: '1px solid rgba(220,38,38,0.18)', borderRadius: 12, padding: '20px 24px', marginBottom: 16 }}>
-                <div style={{ color: '#dc2626', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Red Flags Triggered</div>
+              <div className="rounded-2xl p-5 mb-4" style={{ background: 'rgba(220,38,38,0.06)', border: '1px solid rgba(220,38,38,0.18)' }}>
+                <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#dc2626' }}>Red Flags Triggered</div>
                 {flagged.map((f, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginBottom: 8 }}>
-                    <span style={{ fontSize: 14 }}>🚩</span>
-                    <span style={{ color: '#fca5a5', fontSize: 14, lineHeight: 1.5 }}>{f.title}</span>
+                  <div key={i} className="flex gap-2 items-start mb-2">
+                    <span className="text-sm">🚩</span>
+                    <span className="text-sm leading-relaxed" style={{ color: '#fca5a5' }}>{f.title}</span>
                   </div>
                 ))}
               </div>
             )}
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <a href="/#contact" style={{ background: '#c8a96e', color: '#0f1117', borderRadius: 10, padding: '15px 24px', textAlign: 'center', fontWeight: 700, fontSize: 15, textDecoration: 'none', display: 'block' }}>
+            <div className="flex flex-col gap-3">
+              <a
+                href="/#contact"
+                className="block rounded-xl py-4 text-center font-bold text-sm no-underline"
+                style={{ background: '#c8a96e', color: '#0f172a' }}
+              >
                 Book a Free 30-Minute Strategy Call
               </a>
-              <button onClick={reset} style={{ background: 'transparent', border: '1px solid #1e293b', color: '#475569', borderRadius: 10, padding: '13px 24px', fontSize: 14, cursor: 'pointer' }}>
+              <button
+                onClick={reset}
+                className="rounded-xl py-3 text-sm text-slate-500 bg-transparent border border-slate-800 cursor-pointer"
+              >
                 Retake Assessment
               </button>
             </div>
@@ -452,34 +462,35 @@ function MindsetAssessment() {
   const reset = () => { setPhase('intro'); setCurrent(0); setSelected(null); setLog([]); setNote(null); };
 
   return (
-    <section id="mindset" style={{ padding: '72px 0', scrollMarginTop: 80 }}>
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px' }}>
+    <section id="mindset" className="py-20" style={{ scrollMarginTop: 80 }}>
+      <div className="container mx-auto px-6 max-w-2xl">
 
         {/* Header */}
-        <div style={{ marginBottom: 48 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: 20, padding: '4px 14px', marginBottom: 14 }}>
-            <span style={{ fontSize: 14 }}>🌱</span>
-            <span style={{ color: '#6366f1', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase' }}>Assessment 2</span>
+        <div className="mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1 mb-4 text-xs font-bold uppercase tracking-widest border" style={{ background: 'rgba(99,102,241,0.1)', borderColor: 'rgba(99,102,241,0.25)', color: '#818cf8' }}>
+            <span>🌱</span> Assessment 2
           </div>
-          <h2 style={{ fontSize: 'clamp(26px,5vw,38px)', fontWeight: 800, margin: '0 0 12px', letterSpacing: -0.5, lineHeight: 1.2 }}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight leading-tight">
             The Build Anyway Mindset Check
           </h2>
-          <p style={{ color: '#94a3b8', fontSize: 16, margin: 0, maxWidth: 520, lineHeight: 1.75 }}>
+          <p className="text-slate-400 text-base leading-relaxed max-w-lg">
             Thich Nhat Hanh wrote that the present moment is the only moment available to us. Most founders spend it somewhere else. These five questions are for the founder underneath the startup.
           </p>
         </div>
 
         {/* INTRO */}
         {phase === 'intro' && (
-          <div style={{ background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.18)', borderRadius: 14, padding: '40px 32px', textAlign: 'center' }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>🌸</div>
-            <p style={{ color: '#94a3b8', fontSize: 15, lineHeight: 1.8, maxWidth: 480, margin: '0 auto 12px' }}>
+          <div className="card p-10 text-center">
+            <div className="text-5xl mb-5">🌸</div>
+            <p className="text-slate-400 text-base leading-relaxed max-w-md mx-auto mb-3">
               No judgment. No shame. Just honesty.
             </p>
-            <p style={{ color: '#4a5568', fontSize: 14, fontStyle: 'italic', margin: '0 auto 28px' }}>
-              "No mud, no lotus." — Thich Nhat Hanh
-            </p>
-            <button onClick={() => setPhase('quiz')} style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '14px 32px', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+            <p className="text-slate-600 text-sm italic mb-8">"No mud, no lotus." — Thich Nhat Hanh</p>
+            <button
+              onClick={() => setPhase('quiz')}
+              className="inline-flex items-center justify-center rounded-xl px-8 py-3.5 text-sm font-bold text-white cursor-pointer border-0"
+              style={{ background: '#6366f1' }}
+            >
               Begin →
             </button>
           </div>
@@ -491,14 +502,14 @@ function MindsetAssessment() {
             <ProgressBar current={current} total={QUESTIONS.length} color="#6366f1" />
 
             {/* Question card */}
-            <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 14, padding: '28px 24px', marginBottom: 16 }}>
-              <p style={{ color: '#818cf8', fontSize: 14, fontStyle: 'italic', margin: '0 0 4px', lineHeight: 1.65 }}>{q.teaching}</p>
-              <p style={{ color: '#374151', fontSize: 13, margin: '0 0 20px' }}>{q.author}</p>
-              <p style={{ color: '#e2e8f0', fontSize: 17, fontWeight: 600, lineHeight: 1.55, margin: 0 }}>{q.question}</p>
+            <div className="card p-7 mb-4">
+              <p className="text-sm italic leading-relaxed mb-1" style={{ color: '#818cf8' }}>{q.teaching}</p>
+              <p className="text-slate-600 text-xs mb-5">{q.author}</p>
+              <p className="text-white text-base font-semibold leading-snug">{q.question}</p>
             </div>
 
             {/* Answers */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
+            <div className="flex flex-col gap-2 mb-4">
               {q.answers.map((ans, idx) => {
                 const s = MINDSET_STYLE[ans.label];
                 const isSelected = selected === idx;
@@ -507,22 +518,22 @@ function MindsetAssessment() {
                   <div
                     key={idx}
                     onClick={() => select(idx)}
+                    className="rounded-xl p-3.5 flex gap-3 items-start transition-all duration-200"
                     style={{
                       background: isSelected ? s.bg : 'rgba(255,255,255,0.02)',
-                      border: `1px solid ${isSelected ? s.border : '#1e293b'}`,
-                      borderRadius: 10,
-                      padding: '13px 16px',
+                      border: `1px solid ${isSelected ? s.border : 'rgb(30,41,59)'}`,
                       cursor: selected !== null && !isSelected ? 'default' : 'pointer',
-                      display: 'flex', gap: 12, alignItems: 'flex-start',
                       opacity: selected !== null && !isSelected ? 0.38 : 1,
-                      transition: 'all 0.25s',
                       animation: isPulsing ? 'indigoPulse 1.1s ease-out' : 'none',
                     }}
                   >
-                    <div style={{ background: `${s.tag}22`, border: `1px solid ${s.tag}44`, borderRadius: 4, padding: '2px 8px', fontSize: 11, fontWeight: 600, color: s.tag, flexShrink: 0, letterSpacing: 0.3, marginTop: 2, whiteSpace: 'nowrap' }}>
+                    <div
+                      className="rounded px-2 py-0.5 text-xs font-semibold flex-shrink-0 mt-0.5 whitespace-nowrap"
+                      style={{ background: `${s.tag}22`, border: `1px solid ${s.tag}44`, color: s.tag }}
+                    >
                       {ans.label}
                     </div>
-                    <span style={{ color: isSelected ? '#e2e8f0' : '#8492a6', fontSize: 14, lineHeight: 1.6 }}>{ans.text}</span>
+                    <span className="text-sm leading-relaxed" style={{ color: isSelected ? '#e2e8f0' : '#8492a6' }}>{ans.text}</span>
                   </div>
                 );
               })}
@@ -530,16 +541,18 @@ function MindsetAssessment() {
 
             {/* Compassion note */}
             {note && (
-              <div style={{ background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 10, padding: '14px 18px', marginBottom: 14 }}>
-                <p style={{ color: '#a5b4fc', fontSize: 14, fontStyle: 'italic', margin: 0, lineHeight: 1.7 }}>
-                  "{note}"
-                </p>
+              <div className="rounded-xl p-4 mb-4" style={{ background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.2)' }}>
+                <p className="text-sm italic leading-relaxed m-0" style={{ color: '#a5b4fc' }}>"{note}"</p>
               </div>
             )}
 
             {selected !== null && (
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <button onClick={next} style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 26px', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>
+              <div className="flex justify-end">
+                <button
+                  onClick={next}
+                  className="rounded-xl px-6 py-3 text-sm font-bold text-white cursor-pointer border-0"
+                  style={{ background: '#6366f1' }}
+                >
                   {current + 1 < QUESTIONS.length ? 'Next →' : 'See My Results →'}
                 </button>
               </div>
@@ -550,43 +563,54 @@ function MindsetAssessment() {
         {/* RESULTS */}
         {phase === 'results' && (
           <>
-            <div style={{ background: '#0f172a', border: `1px solid ${tier.color}44`, borderRadius: 16, padding: '40px 28px', textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ color: '#374151', fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 6 }}>Mindset Score</div>
-              <div style={{ fontSize: 80, fontWeight: 900, color: tier.color, lineHeight: 1 }}>{displayScore}</div>
-              <div style={{ color: '#334155', fontSize: 14, marginBottom: 20 }}>out of 10</div>
-              <div style={{ display: 'inline-block', background: `${tier.color}18`, border: `1px solid ${tier.color}33`, borderRadius: 20, padding: '6px 20px', marginBottom: 10 }}>
-                <span style={{ color: tier.color, fontWeight: 700, fontSize: 15 }}>{tier.label}</span>
+            <div className="card p-10 text-center mb-5" style={{ border: `1px solid ${tier.color}44` }}>
+              <div className="text-xs uppercase tracking-widest text-slate-500 mb-2">Mindset Score</div>
+              <div className="font-black leading-none mb-1" style={{ fontSize: 80, color: tier.color }}>{displayScore}</div>
+              <div className="text-slate-600 text-sm mb-5">out of 10</div>
+              <div className="inline-block rounded-full px-5 py-1.5 mb-2" style={{ background: `${tier.color}18`, border: `1px solid ${tier.color}33` }}>
+                <span className="font-bold text-base" style={{ color: tier.color }}>{tier.label}</span>
               </div>
-              <p style={{ color: '#94a3b8', fontSize: 15, margin: '10px 0 0' }}>{tier.desc}</p>
+              <p className="text-slate-400 text-sm mt-2">{tier.desc}</p>
             </div>
 
             {patterns.length > 0 && (
-              <div style={{ background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 12, padding: '20px 24px', marginBottom: 16 }}>
-                <div style={{ color: '#6366f1', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Patterns Worth Noticing</div>
+              <div className="rounded-2xl p-5 mb-4" style={{ background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.2)' }}>
+                <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#6366f1' }}>Patterns Worth Noticing</div>
                 {patterns.map((a, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 8 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#6366f1', flexShrink: 0, marginTop: 7 }} />
-                    <span style={{ color: '#a5b4fc', fontSize: 14, lineHeight: 1.55 }}>{a.question}</span>
+                  <div key={i} className="flex gap-2.5 items-start mb-2">
+                    <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-2" style={{ background: '#6366f1' }} />
+                    <span className="text-sm leading-relaxed" style={{ color: '#a5b4fc' }}>{a.question}</span>
                   </div>
                 ))}
               </div>
             )}
 
             {/* Closing note */}
-            <div style={{ background: 'rgba(99,102,241,0.03)', border: '1px solid rgba(99,102,241,0.12)', borderRadius: 12, padding: '24px', marginBottom: 20 }}>
-              <p style={{ color: '#64748b', fontSize: 14, fontStyle: 'italic', lineHeight: 1.85, margin: 0 }}>
+            <div className="card p-6 mb-5">
+              <p className="text-slate-500 text-sm italic leading-relaxed m-0">
                 "Thich Nhat Hanh said that the most precious gift we can offer anyone is our attention. Build Anyway exists for founders who are learning to give that gift to themselves — and then to everything they build. If this landed somewhere real, Peter would like to hear from you."
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <a href="/#contact" style={{ background: '#6366f1', color: '#fff', borderRadius: 10, padding: '15px 24px', textAlign: 'center', fontWeight: 700, fontSize: 15, textDecoration: 'none', display: 'block' }}>
+            <div className="flex flex-col gap-3">
+              <a
+                href="/#contact"
+                className="block rounded-xl py-4 text-center font-bold text-sm text-white no-underline"
+                style={{ background: '#6366f1' }}
+              >
                 Talk to Peter
               </a>
-              <a href="/build-anyway" style={{ background: 'transparent', border: '1px solid rgba(99,102,241,0.3)', color: '#818cf8', borderRadius: 10, padding: '13px 24px', textAlign: 'center', fontSize: 14, textDecoration: 'none', display: 'block' }}>
+              <a
+                href="/build-anyway"
+                className="block rounded-xl py-3.5 text-center text-sm no-underline"
+                style={{ background: 'transparent', border: '1px solid rgba(99,102,241,0.3)', color: '#818cf8' }}
+              >
                 Learn About Build Anyway →
               </a>
-              <button onClick={reset} style={{ background: 'transparent', border: 'none', color: '#374151', fontSize: 13, cursor: 'pointer', padding: '8px' }}>
+              <button
+                onClick={reset}
+                className="py-2 text-xs text-slate-600 bg-transparent border-0 cursor-pointer"
+              >
                 Start over
               </button>
             </div>
@@ -615,48 +639,48 @@ export default function RedFlagsPage() {
           40%  { box-shadow: 0 0 0 10px rgba(99,102,241,0.28); }
           100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
         }
-        *, *::before, *::after { box-sizing: border-box; }
-        @media (max-width: 600px) {
-          .hero-buttons { flex-direction: column !important; }
-        }
       `}</style>
 
-      <div style={{ background: '#0f1117', minHeight: '100vh', color: '#e2e8f0', fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
+      <div className="bg-slate-950 min-h-screen text-white">
         <Header />
 
         {/* PAGE HERO */}
-        <section style={{ padding: 'clamp(100px,15vw,140px) 24px 72px', textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(200,169,110,0.1)', border: '1px solid rgba(200,169,110,0.25)', borderRadius: 20, padding: '5px 16px', marginBottom: 24 }}>
-            <span style={{ color: '#c8a96e', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase' }}>Ferreira CTO</span>
-          </div>
-          <h1 style={{ fontSize: 'clamp(34px,7vw,56px)', fontWeight: 900, margin: '0 0 16px', letterSpacing: -1.5, lineHeight: 1.08 }}>
-            Two Assessments.<br />One Honest Picture.
-          </h1>
-          <p style={{ color: '#94a3b8', fontSize: 18, lineHeight: 1.72, margin: '0 0 40px' }}>
-            Most deep tech founders have a strategy problem, a mindset problem, or both.<br />Find out which.
-          </p>
-          <div className="hero-buttons" style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => scrollTo('strategy')}
-              style={{ background: '#c8a96e', color: '#0f1117', border: 'none', borderRadius: 8, padding: '14px 22px', fontSize: 15, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
-            >
-              🚩 Start Strategy Assessment
-            </button>
-            <button
-              onClick={() => scrollTo('mindset')}
-              style={{ background: 'transparent', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.4)', borderRadius: 8, padding: '14px 22px', fontSize: 15, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
-            >
-              🌱 Start Mindset Assessment
-            </button>
+        <section className="pt-32 pb-20 text-center">
+          <div className="container mx-auto px-6 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1 mb-6 text-xs font-bold uppercase tracking-widest border" style={{ background: 'rgba(200,169,110,0.1)', borderColor: 'rgba(200,169,110,0.25)', color: '#c8a96e' }}>
+              Ferreira CTO
+            </div>
+            <h1 className="text-5xl sm:text-6xl font-black tracking-tight leading-none mb-5">
+              Two Assessments.<br />One Honest Picture.
+            </h1>
+            <p className="text-slate-400 text-lg leading-relaxed mb-10">
+              Most deep tech founders have a strategy problem, a mindset problem, or both.<br className="hidden sm:block" /> Find out which.
+            </p>
+            <div className="flex gap-3 justify-center flex-wrap">
+              <button
+                onClick={() => scrollTo('strategy')}
+                className="rounded-xl px-6 py-3.5 text-sm font-bold cursor-pointer border-0 whitespace-nowrap"
+                style={{ background: '#c8a96e', color: '#0f172a' }}
+              >
+                🚩 Start Strategy Assessment
+              </button>
+              <button
+                onClick={() => scrollTo('mindset')}
+                className="rounded-xl px-6 py-3.5 text-sm font-semibold cursor-pointer whitespace-nowrap"
+                style={{ background: 'transparent', color: '#818cf8', border: '1px solid rgba(99,102,241,0.4)' }}
+              >
+                🌱 Start Mindset Assessment
+              </button>
+            </div>
           </div>
         </section>
 
         <StrategyAssessment />
 
         {/* DIVIDER */}
-        <div style={{ padding: '0 24px' }}>
-          <div style={{ maxWidth: 560, margin: '0 auto', borderTop: '1px solid #1a2233', padding: '56px 0', textAlign: 'center' }}>
-            <p style={{ color: '#2d3a4f', fontSize: 18, fontStyle: 'italic', margin: 0, letterSpacing: 0.1 }}>
+        <div className="container mx-auto px-6 max-w-lg">
+          <div className="border-t border-slate-800 py-14 text-center">
+            <p className="text-slate-700 text-lg italic">
               That was your strategy. Now let's look at something harder.
             </p>
           </div>
