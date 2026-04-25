@@ -51,13 +51,12 @@ export default function BuildAnywayPage() {
         <div className="max-w-4xl">
           <div className="mb-8" style={{ width: '840px', maxWidth: '100%' }}>
             <style>{`
-              @keyframes ba-spin-slow   { to { transform: rotate(360deg); } }
-              @keyframes ba-spin-rev    { to { transform: rotate(-360deg); } }
+              @keyframes ba-fade-in     { from { opacity: 0; } to { opacity: 1; } }
               @keyframes ba-ring-pulse  { 0%,100% { opacity: 0.18; } 50% { opacity: 0.38; } }
               @keyframes ba-glow-pulse  { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
               @keyframes ba-text-in     { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
-              .ba-petals-outer { animation: ba-spin-slow 18s linear infinite; transform-origin: 50px 50px; }
-              .ba-petals-inner { animation: ba-spin-rev  12s linear infinite; transform-origin: 50px 50px; }
+              .ba-petals-outer { animation: ba-fade-in 1.6s ease-out both 0.2s; }
+              .ba-petals-inner { animation: ba-fade-in 1.6s ease-out both 0.5s; }
               .ba-ring-1 { animation: ba-ring-pulse 4s ease-in-out infinite; }
               .ba-ring-2 { animation: ba-ring-pulse 4s ease-in-out infinite 0.6s; }
               .ba-ring-3 { animation: ba-ring-pulse 4s ease-in-out infinite 1.2s; }
@@ -81,7 +80,7 @@ export default function BuildAnywayPage() {
                   <g transform="rotate(300)"><path d="M 0,-34 L 5,-4 L 0,0 L -5,-4 Z"/></g>
                 </g>
 
-                <g className="ba-petals-inner" transform="rotate(30)" stroke="#C8A96E" strokeWidth="0.5" fill="#C8A96E" fillOpacity="0.22">
+                <g className="ba-petals-inner" transform="rotate(30)" stroke="#C8A96E" strokeWidth="0.5" fill="#C8A96E" fillOpacity="0.22" >
                   <path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/>
                   <g transform="rotate(60)"> <path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
                   <g transform="rotate(120)"><path d="M 0,-24 L 3,-4 L 0,0 L -3,-4 Z"/></g>
