@@ -102,7 +102,7 @@ export default function BuildAnywayPage() {
 
               <line x1="314" y1="22" x2="314" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
 
-              <text className="ba-tagline" x="330" y="56" textAnchor="start" fontFamily="'Courier New', Courier, monospace" fontSize="13" letterSpacing="3" fill="#9aaabf">ENTREPRENEURSHIP FOR RECOVERY</text>
+              <text className="ba-tagline" x="330" y="56" textAnchor="start" fontFamily="'Courier New', Courier, monospace" fontSize="10" letterSpacing="1.5" fill="#9aaabf">ENTREPRENEURSHIP FOR RECOVERY</text>
 
             </svg>
           </div>
