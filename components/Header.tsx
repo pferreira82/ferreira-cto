@@ -16,9 +16,8 @@ export default function Header() {
           <Link href="/" className="flex items-center" aria-label="Ferreira CTO">
             <style>{`
               @keyframes f-swivel {
-                0%, 70%, 100% { transform: rotateY(0deg); }
-                80%            { transform: rotateY(180deg); }
-                90%            { transform: rotateY(360deg); }
+                0%, 70%, 100% { transform: rotate(0deg); }
+                90%            { transform: rotate(360deg); }
               }
               .f-mark {
                 transform-box: fill-box;
