@@ -20,8 +20,7 @@ export default function Header() {
                 90%            { transform: rotate(360deg); }
               }
               .f-mark {
-                transform-box: fill-box;
-                transform-origin: center center;
+                transform-origin: 0px 0px;
                 animation: f-swivel 12s ease-in-out infinite;
               }
             `}</style>
@@ -32,7 +31,9 @@ export default function Header() {
                 <circle r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.17"/>
                 <circle r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.10"/>
                 <circle r="9"  stroke="#C8A96E" strokeWidth="0.3"  fill="none" opacity="0.16"/>
-                <text className="f-mark" x="0" y="11" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="31" fontWeight="700" fill="#C8A96E">F</text>
+                <g className="f-mark">
+                  <text x="0" y="11" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="31" fontWeight="700" fill="#C8A96E">F</text>
+                </g>
               </g>
               <line x1="94" y1="22" x2="94" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
               <text x="110" y="44" textAnchor="start" fontFamily="Georgia, 'Times New Roman', serif" fontSize="26" fontWeight="700" letterSpacing="5" fill="#E8E0D0">FERREIRA</text>
@@ -47,7 +48,9 @@ export default function Header() {
                 <circle r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.17"/>
                 <circle r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.10"/>
                 <circle r="9"  stroke="#C8A96E" strokeWidth="0.3"  fill="none" opacity="0.16"/>
-                <text className="f-mark" x="0" y="11" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="31" fontWeight="700" fill="#C8A96E">F</text>
+                <g className="f-mark">
+                  <text x="0" y="11" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="31" fontWeight="700" fill="#C8A96E">F</text>
+                </g>
               </g>
               <line x1="94" y1="22" x2="94" y2="78" stroke="#1e2a3a" strokeWidth="0.5"/>
               <text x="110" y="44" textAnchor="start" fontFamily="Georgia, 'Times New Roman', serif" fontSize="26" fontWeight="700" letterSpacing="5" fill="#E8E0D0">FERREIRA</text>
