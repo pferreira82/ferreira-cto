@@ -43,7 +43,7 @@ export default function Header() {
             </svg>
 
             {/* Mobile — F mark only */}
-            <svg className="md:hidden" style={{ width: 'auto', height: '64px' }} viewBox="16 16 68 68" role="img" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision" textRendering="geometricPrecision">
+            <svg className="md:hidden pb-2" style={{ width: 'auto', height: '64px' }} viewBox="16 16 68 68" role="img" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision" textRendering="geometricPrecision">
               <g transform="translate(50,50)">
                 <circle r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.17"/>
                 <circle r="24" stroke="#C8A96E" strokeWidth="0.35" fill="none" opacity="0.10"/>
