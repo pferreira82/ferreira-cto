@@ -15,13 +15,15 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center" aria-label="Ferreira CTO">
             <style>{`
-              @keyframes f-swivel {
-                0%, 70%, 100% { transform: rotate(0deg); }
-                90%            { transform: rotate(360deg); }
+              @keyframes f-spin {
+                0%, 100%  { transform: scaleX(1); }
+                25%        { transform: scaleX(0.08); }
+                50%        { transform: scaleX(1); }
+                75%        { transform: scaleX(0.08); }
               }
               .f-mark {
                 transform-origin: 0px 0px;
-                animation: f-swivel 12s ease-in-out infinite;
+                animation: f-spin 2.4s ease-in-out infinite;
               }
             `}</style>
 
