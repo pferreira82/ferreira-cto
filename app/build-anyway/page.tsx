@@ -49,7 +49,7 @@ export default function BuildAnywayPage() {
       {/* HERO */}
       <section className="container mx-auto px-6 pt-32 pb-16">
         <div className="max-w-4xl">
-          <div className="mb-8" style={{ width: '840px', maxWidth: '100%' }}>
+          <div className="mb-8 w-full">
             <style>{`
               @keyframes ba-fade-in     { from { opacity: 0; } to { opacity: 1; } }
               @keyframes ba-ring-pulse  { 0%,100% { opacity: 0.18; } 50% { opacity: 0.38; } }
@@ -64,7 +64,7 @@ export default function BuildAnywayPage() {
               .ba-wordmark { animation: ba-text-in 0.8s ease-out both 0.3s; }
               .ba-tagline  { animation: ba-text-in 0.8s ease-out both 0.6s; }
             `}</style>
-            <svg width="100%" viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Build Anyway">
+            <svg width="100%" style={{ maxWidth: '840px' }} viewBox="0 0 680 100" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Build Anyway">
 
               <g transform="translate(50,50)">
                 <circle className="ba-ring-1" r="34" stroke="#C8A96E" strokeWidth="0.5" fill="none" opacity="0.18"/>

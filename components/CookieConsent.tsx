@@ -62,13 +62,13 @@ export default function CookieConsent() {
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <button
                 onClick={declineCookies}
-                className="px-6 py-2.5 border border-slate-600 hover:border-slate-500 rounded-lg font-medium transition-all text-sm whitespace-nowrap"
+                className="px-6 py-2.5 border border-slate-600 hover:border-slate-500 rounded-lg font-medium transition-all text-sm"
               >
                 Decline
               </button>
               <button
                 onClick={acceptCookies}
-                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition-all text-sm whitespace-nowrap"
+                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition-all text-sm"
               >
                 Accept Cookies
               </button>

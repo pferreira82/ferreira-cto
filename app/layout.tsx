@@ -92,7 +92,7 @@ export default function RootLayout({
                 }}
             />
         </head>
-      <body className={`${inter.className} bg-slate-950 text-white antialiased`}>
+      <body className={`${inter.className} bg-slate-950 text-white antialiased overflow-x-hidden`}>
         {children}
         <CookieConsent />
         <SpeedInsights />

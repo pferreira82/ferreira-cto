@@ -96,7 +96,7 @@ export default function Home() {
             </div>
             <a
               href={home.offer.cta.href}
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold transition-all text-slate-950 whitespace-nowrap"
+              className="group inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold transition-all text-slate-950"
               style={{ backgroundColor: '#c8a96e' }}
             >
               {home.offer.cta.label}
