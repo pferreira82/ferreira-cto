@@ -16,14 +16,15 @@ export default function Header() {
           <Link href="/" className="flex items-center" aria-label="Ferreira CTO">
             <style>{`
               @keyframes f-spin {
-                0%, 100%  { transform: scaleX(1); }
-                25%        { transform: scaleX(0.08); }
-                50%        { transform: scaleX(1); }
-                75%        { transform: scaleX(0.08); }
+                0%          { transform: scaleX(1); }
+                6%          { transform: scaleX(0.08); }
+                12%         { transform: scaleX(1); }
+                18%         { transform: scaleX(0.08); }
+                24%, 100%   { transform: scaleX(1); }
               }
               .f-mark {
                 transform-origin: 0px 0px;
-                animation: f-spin 2.4s ease-in-out infinite;
+                animation: f-spin 12s ease-in-out infinite;
               }
             `}</style>
 
