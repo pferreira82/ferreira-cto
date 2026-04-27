@@ -334,6 +334,7 @@ export const buildAway = {
       duration: "4 weeks",
       setting: "Inside IOP programs",
       seatPrice: 30,
+      priceLabel: "/class",
       headline: "You already built something. Now let's prove it.",
       description:
         "A structured 4-week curriculum delivered inside your IOP program. Participants reframe their past as raw material, identify a business idea rooted in lived experience, and leave with a one-page concept and 30-day action plan.",
@@ -346,7 +347,8 @@ export const buildAway = {
       color: "purple",
       duration: "6 weeks",
       setting: "Post-discharge enrollment",
-      seatPrice: 297,
+      seatPrice: 50,
+      priceLabel: "/class",
       headline: "You have the concept. Now build the real thing.",
       description:
         "For Level 1 graduates who are post-discharge and ready to go deeper. Customer validation, pricing, legal basics, and a hard graduation requirement: generate $1 in real revenue, or secure a committed pilot partner.",
@@ -360,6 +362,7 @@ export const buildAway = {
       duration: "8 weeks",
       setting: "Train to teach in your city",
       seatPrice: 1500,
+      priceLabel: "/cohort",
       headline: "You've been through it. Now help others through it.",
       description:
         "For Level 2 graduates ready to teach. Trauma-informed facilitation, curriculum mastery, and a live practicum observed by Peter. Graduates are licensed to run Build Anyway cohorts independently — with ongoing support and a revenue share model.",
@@ -442,7 +445,7 @@ export const forDirectors = {
     items: [
       { label: "Format",      value: "4 weeks · 8 sessions · 75 minutes each" },
       { label: "Group Size",  value: "Up to 20 participants" },
-      { label: "Pricing",     value: "$30 per class · $240 per seat · $4,800 per cohort" },
+      { label: "Pricing",     value: "$30 per class · $240 per seat · up to $4,800 per cohort" },
       { label: "Scheduling",  value: "Modular — fits around your existing programming" },
       { label: "Delivery",    value: "On-site at your facility" },
       { label: "Materials",   value: "Provided — workbooks, session guides, certificate" },
@@ -504,7 +507,8 @@ export const levels = {
       duration: "4 weeks · 8 sessions · 75 min each",
       cohortSize: "Up to 20 participants",
       setting: "Delivered on-site inside IOP programs",
-      seatPrice: 100,
+      seatPrice: 30,
+      priceLabel: "/class",
       tagline: "You already built something. Now let's prove it.",
       prerequisite: null,
       weeks: [
@@ -561,7 +565,8 @@ export const levels = {
       duration: "6 weeks · 12 sessions · 90 min each",
       cohortSize: "8–12 participants",
       setting: "Direct enrollment or facility-sponsored alumni program",
-      seatPrice: 297,
+      seatPrice: 50,
+      priceLabel: "/class",
       tagline: "You have the concept. Now build the real thing.",
       prerequisite: "Level 1 Foundation Certificate + minimum 30 days post-discharge",
       weeks: [
@@ -615,6 +620,7 @@ export const levels = {
       cohortSize: "Maximum 6 participants",
       setting: "Online or in-person — taught directly by Peter Ferreira",
       seatPrice: 1500,
+      priceLabel: "/cohort",
       tagline: "You've been through it. Now help others through it.",
       prerequisite: "Level 2 Builder Certificate + 90 days of active business operation",
       weeks: [

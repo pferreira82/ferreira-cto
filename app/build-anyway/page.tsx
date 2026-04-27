@@ -184,7 +184,7 @@ export default function BuildAnywayPage() {
                   <div>{level.duration}</div>
                   <div>{level.setting}</div>
                   <div className="font-bold text-base mt-2" style={{ color: accent }}>
-                    ${level.seatPrice} / class
+                    ${level.seatPrice}{level.priceLabel}
                   </div>
                 </div>
 
