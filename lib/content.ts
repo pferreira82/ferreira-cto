@@ -203,7 +203,7 @@ export const home = {
         priceNote: "Per class · IOP cohorts",
         headline: "Entrepreneurship education for people in recovery.",
         description:
-          "A 3-level certification program delivered inside IOP programs and post-discharge. Participants leave with a business concept, a 30-day action plan, and a peer accountability group. Level 3 certifies graduates to teach in their own cities. 10% of every cohort funds scholarship seats for programs that can't pay.",
+          "A 3-level certification program delivered inside IOP programs and post-discharge. Participants leave with a business concept, a 30-day action plan, and a peer accountability group. Level 3 certifies graduates to teach in their own cities. 5% of every cohort funds scholarship seats for programs that can't pay.",
         audience: "IOP program directors and recovery community organizations",
         cta: { label: "For IOP Directors", href: "/build-anyway/for-directors" },
       },
@@ -322,7 +322,7 @@ export const buildAway = {
   stats: [
     { value: "20",   label: "participants per cohort" },
     { value: "3",    label: "levels of certification" },
-    { value: "10%",  label: "of every cohort funds scholarships" },
+    { value: "5%",  label: "of every cohort funds scholarships" },
     { value: "1",    label: "facilitator who has been there" },
   ],
 
@@ -375,7 +375,7 @@ export const buildAway = {
     eyebrow: "The Build Anyway Scholarship Fund",
     headline: "Every paid seat funds a free one.",
     body:
-      "10% of every cohort fee goes directly into the Build Anyway Scholarship Fund — used to sponsor seats at community programs, nonprofit recovery houses, and underserved IOP facilities that can't afford full pricing. Donors can contribute directly. The fund grows with every cohort, in every city, at every level.",
+      "5% of every cohort fee goes directly into the Build Anyway Scholarship Fund — used to sponsor seats at community programs, nonprofit recovery houses, and underserved IOP facilities that can't afford full pricing. Donors can contribute directly. The fund grows with every cohort, in every city, at every level.",
     cta: {
       label: "Support the Fund",
       href: `mailto:peter@ferreiracto.com?subject=Build%20Anyway%20Scholarship%20Fund`,
