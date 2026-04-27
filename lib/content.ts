@@ -347,7 +347,7 @@ export const buildAway = {
       color: "purple",
       duration: "6 weeks",
       setting: "Post-discharge enrollment",
-      seatPrice: 50,
+      seatPrice: 40,
       priceLabel: "/class",
       headline: "You have the concept. Now build the real thing.",
       description:
@@ -565,7 +565,7 @@ export const levels = {
       duration: "6 weeks · 12 sessions · 90 min each",
       cohortSize: "8–12 participants",
       setting: "Direct enrollment or facility-sponsored alumni program",
-      seatPrice: 50,
+      seatPrice: 40,
       priceLabel: "/class",
       tagline: "You have the concept. Now build the real thing.",
       prerequisite: "Level 1 Foundation Certificate + minimum 30 days post-discharge",
