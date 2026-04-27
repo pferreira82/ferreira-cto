@@ -199,8 +199,8 @@ export const home = {
         number: "03",
         accent: "purple",
         label: "Build Anyway Program",
-        price: "$100",
-        priceNote: "Per seat · IOP cohorts",
+        price: "$30",
+        priceNote: "Per class · IOP cohorts",
         headline: "Entrepreneurship education for people in recovery.",
         description:
           "A 3-level certification program delivered inside IOP programs and post-discharge. Participants leave with a business concept, a 30-day action plan, and a peer accountability group. Level 3 certifies graduates to teach in their own cities. 10% of every cohort funds scholarship seats for programs that can't pay.",
@@ -333,7 +333,7 @@ export const buildAway = {
       color: "blue",
       duration: "4 weeks",
       setting: "Inside IOP programs",
-      seatPrice: 100,
+      seatPrice: 30,
       headline: "You already built something. Now let's prove it.",
       description:
         "A structured 4-week curriculum delivered inside your IOP program. Participants reframe their past as raw material, identify a business idea rooted in lived experience, and leave with a one-page concept and 30-day action plan.",
@@ -442,7 +442,7 @@ export const forDirectors = {
     items: [
       { label: "Format",      value: "4 weeks · 8 sessions · 75 minutes each" },
       { label: "Group Size",  value: "Up to 20 participants" },
-      { label: "Pricing",     value: "$100 per seat · $2,000 per cohort" },
+      { label: "Pricing",     value: "$30 per class · $240 per seat · $4,800 per cohort" },
       { label: "Scheduling",  value: "Modular — fits around your existing programming" },
       { label: "Delivery",    value: "On-site at your facility" },
       { label: "Materials",   value: "Provided — workbooks, session guides, certificate" },

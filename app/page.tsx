@@ -205,7 +205,7 @@ export default function Home() {
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-bold">{level.name}</span>
-                        <span className="text-xs text-slate-500">· {level.duration} · ${level.seatPrice}/seat</span>
+                        <span className="text-xs text-slate-500">· {level.duration} · ${level.seatPrice}/class</span>
                       </div>
                       <p className="text-sm text-slate-400 leading-relaxed">{level.headline}</p>
                     </div>
